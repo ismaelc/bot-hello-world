@@ -2,7 +2,7 @@
   "name": "hello-world-bot",
   "version": "0.0.1",
   "description": "Testing Microsoft Bot Framework",
-  "main": "app2.js",
+  "main": "app.js",
   "scripts": {
     "test": "test"
   },

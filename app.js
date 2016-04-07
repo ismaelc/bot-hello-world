@@ -28,8 +28,8 @@ helloBot.add('/profile',  [
     }
 ]);
 
-//server.use(helloBot.verifyBotFramework({ appId: 'you id', appSecret: 'your secret' }));
-server.use(helloBot.verifyBotFramework());
+server.use(helloBot.verifyBotFramework({ appId: 'you id', appSecret: 'your secret' }));
+//server.use(helloBot.verifyBotFramework());
 server.post('/v1/messages', helloBot.listen());
 
 server.listen(8080, function () {

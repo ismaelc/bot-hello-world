@@ -3,7 +3,10 @@ var builder = require('botbuilder');
 
 var server = restify.createServer();
 
-var helloBot = new builder.BotConnectorBot({ appId: 'YourAppId', appSecret: 'YourAppSecret' });
+var BOT_ID = process.env.BOT_APP_ID;
+var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
+
+var helloBot = new builder.BotConnectorBot({ appId: BOT_ID, appSecret: PRIMARY_SECRET });
 helloBot.add('/', new builder.CommandDialog()
     .matches('^set name', builder.DialogAction.beginDialog('/profile'))
     .matches('^quit', builder.DialogAction.endDialog())
@@ -28,10 +31,10 @@ helloBot.add('/profile',  [
     }
 ]);
 
-//server.use(helloBot.verifyBotFramework({ appId: 'you id', appSecret: 'your secret' }));
+server.use(helloBot.verifyBotFramework({ appId: BOT_ID, appSecret: PRIMARY_SECRET }));
 //server.use(helloBot.verifyBotFramework());
-//server.post('/v1/messages', helloBot.listen());
-server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
+server.post('/v1/messages', helloBot.listen());
+//server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
 
 server.listen(process.env.port || 8080, function () {
     console.log('%s listening to %s', server.name, server.url);

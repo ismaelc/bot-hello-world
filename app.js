@@ -33,8 +33,27 @@ helloBot.add('/search_box', [
     },
     function (session, results) {
         session.userData.query = results.response;
-        session.send('Got it! Searching ' + session.userData.name + '...');
-        session.endDialog();
+        session.send('Got it! Searching ' + session.userData.query + '...');
+
+        var options = {
+          url: 'https://api.github.com/repos/request/request',
+          headers: {
+            'User-Agent': 'request'
+          }
+        };
+
+        function callback(error, response, body) {
+          if (!error && response.statusCode == 200) {
+            var info = JSON.parse(body);
+            console.log(info.stargazers_count + " Stars");
+            console.log(info.forks_count + " Forks");
+            session.send(info.stargazers_count + " Stars");
+            session.endDialog();
+          }
+        }
+
+        request(options, callback);
+
     }
 ]);
 helloBot.add('/profile',  [

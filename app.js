@@ -10,7 +10,7 @@ var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
 var helloBot = new builder.BotConnectorBot({ appId: BOT_ID, appSecret: PRIMARY_SECRET });
 helloBot.add('/', new builder.CommandDialog()
     .matches('^set name', builder.DialogAction.beginDialog('/profile'))
-    .matches('search box', builder.DialogAction.beginDialog('/search_box'))
+    //.matches('search box', builder.DialogAction.beginDialog('/search_box'))
     .matches('^quit', builder.DialogAction.endDialog())
     .onDefault(function (session) {
         if (!session.userData.name) {
@@ -19,17 +19,18 @@ helloBot.add('/', new builder.CommandDialog()
             session.send('Hello %s!', session.userData.name);
         }
     }));
+/*
 helloBot.add('/search_box', [
     function (session) {
-        /*
-        if (session.userData.name) {
-        */
+
+        //if (session.userData.name) {
+
             builder.Prompts.text(session, 'What would you like to search?');
-        /*
-        } else {
-            builder.Prompts.text(session, 'Hi! What is your name?');
-        }
-        */
+
+        //} else {
+        //    builder.Prompts.text(session, 'Hi! What is your name?');
+        //}
+
     },
     function (session, results) {
         session.userData.query = results.response;
@@ -63,6 +64,8 @@ helloBot.add('/search_box', [
         session.endDialog();
     }
 ]);
+*/
+
 helloBot.add('/profile',  [
     function (session) {
         if (session.userData.name) {

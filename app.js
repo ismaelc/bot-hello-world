@@ -56,7 +56,7 @@ helloBot.add('/test-api',
             */
 
 
-            session.endDialog();
+            session.endDialog(JSON.stringify(result));
         }
 
         request(options, callback);

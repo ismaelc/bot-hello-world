@@ -37,8 +37,9 @@ helloBot.add('/call-api', [
         };
 
         function callback(error, response, body) {
+            var info = {};
             if (!error && response.statusCode == 200) {
-                var info = JSON.parse(body);
+                info = JSON.parse(body);
                 console.log(info.stargazers_count + " Stars");
                 console.log(info.forks_count + " Forks");
                 session.send(info.stargazers_count + " Stars");

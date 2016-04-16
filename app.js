@@ -42,7 +42,7 @@ helloBot.add('/call-api', [
                 info = JSON.parse(body);
                 console.log(info.stargazers_count + " Stars");
                 console.log(info.forks_count + " Forks");
-                session.send(info.stargazers_count + " Stars");
+                //session.send(info.stargazers_count + " Stars");
                 //session.endDialog();
             } else {
                 session.send("Error");

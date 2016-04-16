@@ -47,7 +47,7 @@ helloBot.add('/test-api',
                 //session.endDialog();
             }
             else {
-                console.log('Error: ' + JSON.stringify(error));
+                console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
             }
 
             /*

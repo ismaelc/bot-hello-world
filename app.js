@@ -56,8 +56,8 @@ helloBot.add('/test-api',
             //    response: result
             //});
             
-            session.send(JSON.stringify(result));
-            session.endDialog();
+            session.send(JSON.stringify(result)).endDialog();
+            //session.endDialog();
         }
 
         request(options, callback);

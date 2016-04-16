@@ -23,7 +23,7 @@ helloBot.add('/', new builder.CommandDialog()
         }
     }));
 
-helloBot.add('/test-api', 
+helloBot.add('/test-api',
 
     function(session, args, next) {
         //function(session) {
@@ -31,28 +31,27 @@ helloBot.add('/test-api',
         //session.send('Calling API.. ' + session.userData.query + '...');
 
         var options = {
-            url: 'https://api.github.com/repos/request/request',
+            url: 'https://api.box.com/2.0/search?query=mp3',
             headers: {
-                'User-Agent': 'request'
+                'Authorization': 'Bearer ' + process.env.BOX_API_KEY
             }
         };
 
         function callback(error, response, body) {
-            var info = {};
+            var result = {};
             if (!error && response.statusCode == 200) {
-                info = JSON.parse(body);
-                //console.log(info.stargazers_count + " Stars");
-                console.log(info.forks_count + " Forks");
-                //session.send(info.stargazers_count + " Stars");
+                result = JSON.parse(body);
+                //console.log(result.stargazers_count + " Stars");
+                console.log('Response from Box: ' + JSON.stringify(result));
+                //session.send(result.stargazers_count + " Stars");
                 //session.endDialog();
-            }
-            else {
+            } else {
                 console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
             }
 
             /*
             next({
-                response: info
+                response: result
             });
             */
 

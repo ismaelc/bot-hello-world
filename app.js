@@ -84,8 +84,8 @@ helloBot.add('/test-api',
 );
 
 helloBot.add('/api-response', function(session) {
-   session.send('yo!');
-   session.endDialog(); 
+   //session.send('yo!');
+   session.endDialog('YO!!!'); 
 });
 
 helloBot.add('/profile', [

@@ -13,7 +13,7 @@ var helloBot = new builder.BotConnectorBot({
 });
 helloBot.add('/', new builder.CommandDialog()
     .matches('^set name', builder.DialogAction.beginDialog('/profile'))
-    .matches('^test api', builder.DialogAction.beginDialog('/duh-api'))
+    .matches('^call api', builder.DialogAction.beginDialog('/call-api'))
     .matches('^quit', builder.DialogAction.endDialog())
     .onDefault(function(session) {
         if (!session.userData.name) {
@@ -23,7 +23,7 @@ helloBot.add('/', new builder.CommandDialog()
         }
     }));
 
-helloBot.add('/duh-api', [
+helloBot.add('/call-api', [
 
     function(session, args, next) {
         //session.userData.query = results.response;
@@ -46,25 +46,29 @@ helloBot.add('/duh-api', [
                 //session.endDialog();
             }
 
+            /*
             next({
                 response: info
             });
+            */
+            
+            session.endDialog(info.stargazers_count + " Stars");
         }
 
         request(options, callback);
 
-    },
+    }
+    /*
+    ,
     function(session, results) {
         console.log("Gets here");
-        session.send(JSON.stringify(results));
-        //session.endDialog();
-    },
-    function(session, results) {
-        console.log("Gets way here");
+        session.userData.api_response = results.response;
         //session.send(JSON.stringify(results));
         session.endDialog();
-    },
+    }
+    */
 ]);
+
 
 helloBot.add('/profile', [
     function(session) {

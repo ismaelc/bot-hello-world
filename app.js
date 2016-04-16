@@ -54,7 +54,7 @@ helloBot.add('/call-api', [
     },
     function(session, results) {
         console.log("Gets here");
-        session.send(results.info.forks_count);
+        session.send(results.forks_count);
         session.endDialog();
     }
 ]);
@@ -72,7 +72,7 @@ helloBot.add('/profile', [
         //builder.Prompts.text(session, 'Got it! You are now ' + session.userData.name);
         session.send('Got it! You are now ' + session.userData.name);
         session.endDialog();
-    }
+    } 
 ]);
 
 server.use(helloBot.verifyBotFramework({

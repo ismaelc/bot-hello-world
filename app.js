@@ -13,7 +13,7 @@ var helloBot = new builder.BotConnectorBot({
 });
 helloBot.add('/', new builder.CommandDialog()
     .matches('^set name', builder.DialogAction.beginDialog('/profile'))
-    .matches('^test api', builder.DialogAction.beginDialog('/test-api'))
+    .matches('^call api', builder.DialogAction.beginDialog('/call-api'))
     .matches('^quit', builder.DialogAction.endDialog())
     .onDefault(function(session) {
         if (!session.userData.name) {
@@ -23,7 +23,7 @@ helloBot.add('/', new builder.CommandDialog()
         }
     }));
 
-helloBot.add('/test-api',
+helloBot.add('/call-api',
 
     //function(session, args, next) {
     function(session) {

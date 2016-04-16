@@ -44,8 +44,6 @@ helloBot.add('/call-api', [
                 console.log(info.forks_count + " Forks");
                 //session.send(info.stargazers_count + " Stars");
                 //session.endDialog();
-            } else {
-                session.send("Error");
             }
             
             next({ response: info });
@@ -56,7 +54,7 @@ helloBot.add('/call-api', [
     },
     function(session, results) {
         console.log("Gets here");
-        session.send(JSON.stringify(results));
+        session.send(results.info.forks_count);
         session.endDialog();
     }
 ]);

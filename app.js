@@ -25,49 +25,49 @@ helloBot.add('/', new builder.CommandDialog()
 
 helloBot.add('/call-api', [
 
-    //function(session, args, next) {
-    function(session) {
-    //session.userData.query = results.response;
-    //session.send('Calling API.. ' + session.userData.query + '...');
+    function(session, args, next) {
+        //function(session) {
+        //session.userData.query = results.response;
+        //session.send('Calling API.. ' + session.userData.query + '...');
 
-    var options = {
-        url: 'https://api.github.com/repos/request/request',
-        headers: {
-            'User-Agent': 'request'
+        var options = {
+            url: 'https://api.github.com/repos/request/request',
+            headers: {
+                'User-Agent': 'request'
+            }
+        };
+
+        function callback(error, response, body) {
+            var info = {};
+            if (!error && response.statusCode == 200) {
+                info = JSON.parse(body);
+                //console.log(info.stargazers_count + " Stars");
+                console.log(info.forks_count + " Forks");
+                //session.send(info.stargazers_count + " Stars");
+                //session.endDialog();
+            }
+
+
+            next({
+                response: info
+            });
+
+
+            //session.endDialog(info.stargazers_count + " Stars");
         }
-    };
 
-    function callback(error, response, body) {
-        var info = {};
-        if (!error && response.statusCode == 200) {
-            info = JSON.parse(body);
-            //console.log(info.stargazers_count + " Stars");
-            console.log(info.forks_count + " Forks");
-            //session.send(info.stargazers_count + " Stars");
-            //session.endDialog();
-        }
+        request(options, callback);
 
-        /*
-        next({
-            response: info
-        });
-        */
-
-        session.endDialog(info.stargazers_count + " Stars");
     }
 
-    request(options, callback);
+    ,
+    function(session, results) {
+        //console.log("Gets here");
+        session.userData.api_response = results.response;
+        //session.send(JSON.stringify(results));
+        session.endDialog("Got here: " + JSON.stringify(results.response));
+    }
 
-}
-/*
-,
-function(session, results) {
-    console.log("Gets here");
-    session.userData.api_response = results.response;
-    //session.send(JSON.stringify(results));
-    session.endDialog();
-}
-*/
 ]);
 
 

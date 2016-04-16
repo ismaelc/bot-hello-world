@@ -27,7 +27,7 @@ helloBot.add('/call-api', [
 
     function(session, args, next) {
         //session.userData.query = results.response;
-        session.send('Calling API.. ' + session.userData.query + '...');
+        //session.send('Calling API.. ' + session.userData.query + '...');
 
         var options = {
             url: 'https://api.github.com/repos/request/request',
@@ -48,7 +48,7 @@ helloBot.add('/call-api', [
                 session.send("Error");
             }
             
-            next({ response: info });
+            //next({ response: info });
         }
 
         request(options, callback);

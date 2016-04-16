@@ -27,10 +27,11 @@ helloBot.add('/test-api',
 
     //function(session, args, next) {
     function(session) {
+        
         //session.userData.query = results.response;
         //session.send('Calling API.. ' + session.userData.query + '...');
 
-        /*
+        
         var options = {
             url: 'https://api.box.com/2.0/search?query=mp3',
             headers: {
@@ -55,15 +56,17 @@ helloBot.add('/test-api',
             //    response: result
             //});
             
-            session.endDialog(JSON.stringify(result));
+            session.send(JSON.stringify(result));
+            session.endDialog();
         }
 
         request(options, callback);
 
-        */
+        /*
         console.log('Entered dialog');
         //session.endDialog('End dialog');
         builder.DialogAction.endDialog('end dialog');
+        */
     }
     /*
     ,

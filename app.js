@@ -48,7 +48,7 @@ helloBot.add('/call-api', [
                 session.send("Error");
             }
             
-            //next({ response: info });
+            next({ response: info });
         }
 
         request(options, callback);

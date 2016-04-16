@@ -30,7 +30,6 @@ helloBot.add('/test-api',
         
         //session.userData.query = results.response;
         //session.send('Calling API.. ' + session.userData.query + '...');
-
         
         var options = {
             url: 'https://api.box.com/2.0/search?query=mp3',
@@ -56,8 +55,11 @@ helloBot.add('/test-api',
             //    response: result
             //});
             
-            session.send(JSON.stringify(result)).endDialog();
+            //session.send(JSON.stringify(result)).endDialog();
             //session.endDialog();
+            
+            helloBot.beginDialog('/api-response');
+            session.endDialog();
         }
 
         request(options, callback);
@@ -81,6 +83,10 @@ helloBot.add('/test-api',
     */
 );
 
+helloBot.add('/api-response', function(session) {
+   session.send('yo!');
+   session.endDialog(); 
+});
 
 helloBot.add('/profile', [
     function(session) {

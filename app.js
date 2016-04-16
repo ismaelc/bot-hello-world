@@ -55,10 +55,7 @@ helloBot.add('/call-api',
             //    response: result
             //});
             
-            //session.send(JSON.stringify(result)).endDialog();
-            //session.endDialog();
-            
-            helloBot.beginDialog('/api-response');
+            //helloBot.beginDialog('/api-response');
             session.endDialog();
         }
 
@@ -83,10 +80,12 @@ helloBot.add('/call-api',
     */
 );
 
+/*
 helloBot.add('/api-response', function(session) {
    //session.send('yo!');
    session.endDialog('YO!!!'); 
 });
+*/
 
 helloBot.add('/profile', [
     function(session) {

@@ -45,8 +45,10 @@ helloBot.add('/test-api', [
                 //session.send(info.stargazers_count + " Stars");
                 //session.endDialog();
             }
-            
-            next({ response: info });
+
+            next({
+                response: info
+            });
         }
 
         request(options, callback);
@@ -55,8 +57,13 @@ helloBot.add('/test-api', [
     function(session, results) {
         console.log("Gets here");
         session.send(JSON.stringify(results));
+        //session.endDialog();
+    },
+    function(session, results) {
+        console.log("Gets way here");
+        //session.send(JSON.stringify(results));
         session.endDialog();
-    }
+    },
 ]);
 
 helloBot.add('/profile', [
@@ -72,7 +79,7 @@ helloBot.add('/profile', [
         //builder.Prompts.text(session, 'Got it! You are now ' + session.userData.name);
         //session.send('Got it! You are now ' + session.userData.name);
         session.endDialog();
-    } 
+    }
 ]);
 
 server.use(helloBot.verifyBotFramework({

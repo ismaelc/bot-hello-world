@@ -46,6 +46,9 @@ helloBot.add('/test-api',
                 //session.send(info.stargazers_count + " Stars");
                 //session.endDialog();
             }
+            else {
+                console.log('Error: ' + JSON.stringify(error));
+            }
 
             /*
             next({

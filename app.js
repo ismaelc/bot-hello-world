@@ -23,7 +23,7 @@ helloBot.add('/', new builder.CommandDialog()
         }
     }));
 
-helloBot.add('/test-api', [
+helloBot.add('/test-api', 
 
     function(session, args, next) {
         //function(session) {
@@ -47,19 +47,20 @@ helloBot.add('/test-api', [
                 //session.endDialog();
             }
 
-
+            /*
             next({
                 response: info
             });
+            */
 
 
-            //session.endDialog(info.stargazers_count + " Stars");
+            session.endDialog();
         }
 
         request(options, callback);
 
     }
-
+    /*
     ,
     function(session, results) {
         console.log("Gets here");
@@ -69,7 +70,8 @@ helloBot.add('/test-api', [
         session.endDialog();
     }
 
-]);
+    */
+);
 
 
 helloBot.add('/profile', [

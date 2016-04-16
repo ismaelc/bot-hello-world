@@ -62,7 +62,8 @@ helloBot.add('/test-api',
 
         */
         console.log('Entered dialog');
-        session.endDialog('End dialog');
+        //session.endDialog('End dialog');
+        builder.DialogAction.endDialog('end dialog');
     }
     /*
     ,

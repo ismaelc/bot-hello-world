@@ -70,7 +70,7 @@ helloBot.add('/profile', [
     function(session, results) {
         session.userData.name = results.response;
         //builder.Prompts.text(session, 'Got it! You are now ' + session.userData.name);
-        session.send('Got it! You are now ' + session.userData.name);
+        //session.send('Got it! You are now ' + session.userData.name);
         session.endDialog();
     } 
 ]);

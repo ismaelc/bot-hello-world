@@ -13,7 +13,7 @@ var helloBot = new builder.BotConnectorBot({
 });
 helloBot.add('/', new builder.CommandDialog()
     .matches('^set name', builder.DialogAction.beginDialog('/profile'))
-    .matches('^call api', builder.DialogAction.beginDialog('/call-api'))
+    .matches('^test api', builder.DialogAction.beginDialog('/test-api'))
     .matches('^quit', builder.DialogAction.endDialog())
     .onDefault(function(session) {
         if (!session.userData.name) {
@@ -23,7 +23,7 @@ helloBot.add('/', new builder.CommandDialog()
         }
     }));
 
-helloBot.add('/call-api', [
+helloBot.add('/test-api', [
 
     function(session, args, next) {
         //session.userData.query = results.response;
@@ -54,7 +54,7 @@ helloBot.add('/call-api', [
     },
     function(session, results) {
         console.log("Gets here");
-        session.send(results.forks_count);
+        session.send(JSON.stringify(results));
         session.endDialog();
     }
 ]);

@@ -63,14 +63,17 @@ helloBot.add('/call-api', [
             //session.endDialog('End dialog');
             builder.DialogAction.endDialog('end dialog');
             */
-        }
-        else {
+        } else {
             console.log("Went to endDialog on first waterfall..");
-            helloBot.beginDialog('/');
             session.endDialog();
+            console.log("..after endDialog");
+            if (!session.userData.name) {
+                session.beginDialog('/profile');
+            } else {
+                session.send('Hello %s!', session.userData.name);
+            }
         }
-    }
-    ,
+    },
     function(session, results) {
         console.log("Gets here");
         session.dialogData.api_response = results.response;

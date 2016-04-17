@@ -83,7 +83,7 @@ helloBot.add('/call-api', [
         session.dialogData.api_response = results.response;
         //session.send(JSON.stringify("Yo " + results.response));
         //session.endDialog("Got here: " + JSON.stringify(results.response)); // causes endless loop
-        session.endDialog({'text':'X'}); // not reached with .send before it
+        session.endDialog('X'); // not reached with .send before it
         console.log("Got here too");
     }
 

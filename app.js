@@ -30,8 +30,6 @@ helloBot.add('/call-api', [
         //function(session) {
 
         if (!session.dialogData.api_response) {
-            //session.userData.query = results.response;
-            //session.send('Calling API.. ' + session.userData.query + '...');
 
             var options = {
                 url: 'https://api.box.com/2.0/search?query=mp3',
@@ -44,10 +42,7 @@ helloBot.add('/call-api', [
                 var result = {};
                 if (!error && response.statusCode == 200) {
                     result = JSON.parse(body);
-                    //console.log(result.stargazers_count + " Stars");
                     console.log('Response from Box: ' + JSON.stringify(result));
-                    //session.send(result.stargazers_count + " Stars");
-                    //session.endDialog();
                 } else {
                     console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
                 }
@@ -78,7 +73,7 @@ helloBot.add('/call-api', [
     function(session, results) {
         console.log("Gets here");
         session.dialogData.api_response = results.response;
-        //session.send(JSON.stringify(results));
+        session.send(JSON.stringify(results.response));
         //session.endDialog("Got here: " + JSON.stringify(results.response));
         session.endDialog();
     }

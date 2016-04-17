@@ -65,7 +65,8 @@ helloBot.add('/call-api', [
             */
         }
         else {
-            console.log("Went to endDialog on first waterfall..")
+            console.log("Went to endDialog on first waterfall..");
+            helloBot.beginDialog('/');
             session.endDialog();
         }
     }
@@ -74,8 +75,8 @@ helloBot.add('/call-api', [
         console.log("Gets here");
         session.dialogData.api_response = results.response;
         session.send(JSON.stringify("Yo " + results.response));
-        //session.endDialog("Got here: " + JSON.stringify(results.response));
-        session.endDialog();
+        //session.endDialog("Got here: " + JSON.stringify(results.response)); // causes endless loop
+        session.endDialog(); // not reached with .send before it
         console.log("Got here too");
     }
 

@@ -75,7 +75,8 @@ helloBot.add('/call-api', [
         session.dialogData.api_response = results.response;
         session.send(JSON.stringify("Yo " + results.response));
         //session.endDialog("Got here: " + JSON.stringify(results.response));
-        session.endDialog();
+        //session.endDialog();
+        console.log("Got here too");
     }
 
 

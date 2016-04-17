@@ -21,7 +21,11 @@ helloBot.add('/', new builder.CommandDialog()
         } else {
             session.send('Hello %s!', session.userData.name);
         }
-    }));
+    })
+    .replyReceived(function(session) {
+        console.log(JSON.stringify(session));
+    })
+);
 
 helloBot.add('/call-api', [
 
@@ -74,8 +78,8 @@ helloBot.add('/call-api', [
                 session.send('Hello %s!', session.userData.name);
             }
             */
-            
-            
+
+
         }
     },
     function(session, results) {
@@ -83,9 +87,10 @@ helloBot.add('/call-api', [
         session.dialogData.api_response = results.response;
         //session.send(JSON.stringify("Yo " + results.response));
         //session.endDialog("Got here: " + JSON.stringify(results.response)); // causes endless loop
+
         session.endDialog(); // not reached with .send before it
         console.log("Got here too");
-        builder.DialogAction.beginDialog('/profile');
+        helloBot.process
     }
 
 

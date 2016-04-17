@@ -25,8 +25,8 @@ helloBot.add('/', new builder.CommandDialog()
 
 helloBot.add('/call-api', [
 
-    //function(session, args, next) {
-    function(session) {
+    function(session, args, next) {
+    //function(session) {
 
         //session.userData.query = results.response;
         //session.send('Calling API.. ' + session.userData.query + '...');

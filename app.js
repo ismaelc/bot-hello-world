@@ -29,7 +29,7 @@ helloBot.add('/call-api', [
     function(session, args, next) {
         //function(session) {
 
-        if (!session.userDialog.api_response) {
+        if (!session.dialogData.api_response) {
             //session.userData.query = results.response;
             //session.send('Calling API.. ' + session.userData.query + '...');
 

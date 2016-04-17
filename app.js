@@ -23,14 +23,14 @@ helloBot.add('/', new builder.CommandDialog()
         }
     }));
 
-helloBot.add('/call-api',
+helloBot.add('/call-api', [
 
     //function(session, args, next) {
     function(session) {
-        
+
         //session.userData.query = results.response;
         //session.send('Calling API.. ' + session.userData.query + '...');
-        
+
         var options = {
             url: 'https://api.box.com/2.0/search?query=mp3',
             headers: {
@@ -50,13 +50,13 @@ helloBot.add('/call-api',
                 console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
             }
 
-            
-            //next({
-            //    response: result
-            //});
-            
+
+            next({
+                response: result
+            });
+
             //helloBot.beginDialog('/api-response');
-            session.endDialog();
+            //session.endDialog();
         }
 
         request(options, callback);
@@ -67,7 +67,7 @@ helloBot.add('/call-api',
         builder.DialogAction.endDialog('end dialog');
         */
     }
-    /*
+    
     ,
     function(session, results) {
         console.log("Gets here");
@@ -77,8 +77,8 @@ helloBot.add('/call-api',
         session.endDialog();
     }
 
-    */
-);
+    
+]);
 
 /*
 helloBot.add('/api-response', function(session) {

@@ -65,21 +65,25 @@ helloBot.add('/call-api', [
             */
         } else {
             console.log("Went to endDialog on first waterfall..");
-            //session.endDialog();
-            console.log("..after endDialog");
+            session.endDialog(); // causes body.options error
+            //console.log("..after endDialog");
+            /*
             if (!session.userData.name) {
                 session.beginDialog('/profile');
             } else {
                 session.send('Hello %s!', session.userData.name);
             }
+            */
+            
+            
         }
     },
     function(session, results) {
         console.log("Gets here");
         session.dialogData.api_response = results.response;
-        session.send(JSON.stringify("Yo " + results.response));
+        //session.send(JSON.stringify("Yo " + results.response));
         //session.endDialog("Got here: " + JSON.stringify(results.response)); // causes endless loop
-        session.endDialog(); // not reached with .send before it
+        session.endDialog({'text':'X'}); // not reached with .send before it
         console.log("Got here too");
     }
 

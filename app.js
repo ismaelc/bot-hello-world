@@ -65,7 +65,7 @@ helloBot.add('/call-api', [
             */
         } else {
             console.log("Went to endDialog on first waterfall..");
-            session.endDialog();
+            //session.endDialog();
             console.log("..after endDialog");
             if (!session.userData.name) {
                 session.beginDialog('/profile');

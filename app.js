@@ -32,16 +32,52 @@ helloBot.add('/box-find', [
         } else {
             builder.Prompts.text(session, 'What do you want to search?');
         }
-    }, 
-    function(session, results) {
-        console.log("User response: " + results.response);
-        session.endDialog();
     },
+    function(session, results, next) {
+        
+        console.log("User response: " + results.response);
+        session.dialogData.query = results.response.trim();
+
+        if (!session.dialogData.api_response && session.dialogData.querye) {
+
+            var options = {
+                url: 'https://api.box.com/2.0/search?query=' + session.dialogData.query,
+                headers: {
+                    'Authorization': 'Bearer ' + process.env.BOX_API_KEY
+                }
+            };
+
+            function callback(error, response, body) {
+                var result = {};
+                if (!error && response.statusCode == 200) {
+                    result = JSON.parse(body);
+                    console.log('Response from Box: ' + JSON.stringify(result));
+                } else {
+                    console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
+                }
+
+
+                next({
+                    response: result
+                });
+
+            }
+
+            request(options, callback);
+
+
+        } else {
+            console.log("Went to endDialog on first waterfall..");
+            session.endDialog(); // causes body.options error
+        }
+
+    },
+    /*
     // Need this if we are callini next within this function
     function(session, args, next) {
         console.log("Args: " + JSON.stringify(args));
-//        session.endDialog();
-        
+        //        session.endDialog();
+
         if (!session.dialogData.api_response) {
 
             var options = {
@@ -71,26 +107,17 @@ helloBot.add('/box-find', [
 
             request(options, callback);
 
-            /*
-            console.log('Entered dialog');
-            //session.endDialog('End dialog');
-            builder.DialogAction.endDialog('end dialog');
-            */
+
         } else {
             console.log("Went to endDialog on first waterfall..");
             session.endDialog(); // causes body.options error
             //console.log("..after endDialog");
-            /*
-            if (!session.userData.name) {
-                session.beginDialog('/profile');
-            } else {
-                session.send('Hello %s!', session.userData.name);
-            }
-            */
+
 
 
         }
     },
+    */
     function(session, results) {
         console.log("Gets here");
         session.dialogData.api_response = results.response;

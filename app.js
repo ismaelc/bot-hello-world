@@ -120,13 +120,12 @@ helloBot.add('/box-find', [
     */
     function(session, results) {
         console.log("Gets here");
-        session.dialogData.api_response = results.response;
-        //session.send(JSON.stringify("Yo " + results.response));
+        //session.dialogData.api_response = results.response;
+        session.send(JSON.stringify(results.response));
         //session.endDialog("Got here: " + JSON.stringify(results.response)); // causes endless loop
-
-        session.endDialog(); // not reached with .send before it
-        console.log("Got here too");
-        helloBot.process
+        //session.endDialog(); // not reached with .send before it
+        //console.log("Got here too");
+        //helloBot.process
     }
 
 

@@ -38,7 +38,7 @@ helloBot.add('/box-find', [
         console.log("User response: " + results.response);
         session.dialogData.query = results.response.trim();
 
-        if (!session.dialogData.api_response && session.dialogData.querye) {
+        if (!session.dialogData.api_response && session.dialogData.query) {
 
             var options = {
                 url: 'https://api.box.com/2.0/search?query=' + session.dialogData.query,

@@ -13,7 +13,7 @@ var helloBot = new builder.BotConnectorBot({
 });
 helloBot.add('/', new builder.CommandDialog()
     .matches('^set name', builder.DialogAction.beginDialog('/profile'))
-    .matches('^call api', builder.DialogAction.beginDialog('/call-api'))
+    .matches('^box find', builder.DialogAction.beginDialog('/box-find'))
     .matches('^quit', builder.DialogAction.endDialog())
     .onDefault(function(session) {
         if (!session.userData.name) {
@@ -22,17 +22,23 @@ helloBot.add('/', new builder.CommandDialog()
             session.send('Hello %s!', session.userData.name);
         }
     })
-    .replyReceived(function(session) {
-        console.log(JSON.stringify(session));
-    })
 );
 
-helloBot.add('/call-api', [
+helloBot.add('/box-find', [
 
+    function(session) {
+        if (session.dialogData.query) {
+            builder.Prompts.text(session, 'What else do you want to search?');
+        } else {
+            builder.Prompts.text(session, 'What do you want to hear?');
+        }
+    }, ,
     // Need this if we are callini next within this function
     function(session, args, next) {
         //function(session) {
-
+        console.log("Args: " + JSON.stringify(args));
+        session.endDialog();
+        
         if (!session.dialogData.api_response) {
 
             var options = {

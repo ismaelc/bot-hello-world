@@ -30,14 +30,18 @@ helloBot.add('/box-find', [
         if (session.dialogData.query) {
             builder.Prompts.text(session, 'What else do you want to search?');
         } else {
-            builder.Prompts.text(session, 'What do you want to hear?');
+            builder.Prompts.text(session, 'What do you want to search?');
         }
-    }, ,
+    }, 
+    function(session, results) {
+        console.log("User response: " + results.response);
+        session.endDialog();
+    }
     // Need this if we are callini next within this function
     function(session, args, next) {
         //function(session) {
-        console.log("Args: " + JSON.stringify(args));
-        session.endDialog();
+//        console.log("Args: " + JSON.stringify(args));
+//        session.endDialog();
         
         if (!session.dialogData.api_response) {
 

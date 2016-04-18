@@ -36,11 +36,10 @@ helloBot.add('/box-find', [
     function(session, results) {
         console.log("User response: " + results.response);
         session.endDialog();
-    }
+    },
     // Need this if we are callini next within this function
     function(session, args, next) {
-        //function(session) {
-//        console.log("Args: " + JSON.stringify(args));
+        console.log("Args: " + JSON.stringify(args));
 //        session.endDialog();
         
         if (!session.dialogData.api_response) {

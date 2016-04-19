@@ -33,7 +33,6 @@ dialog.on('builtin.intent.calendar.find_calendar_who', [ displayEntities ]);
 dialog.on('builtin.intent.calendar.find_calendar_why', [ displayEntities ]);
 dialog.on('builtin.intent.calendar.find_duration', [ displayEntities ]);
 dialog.on('builtin.intent.calendar.time_remaining', [ displayEntities ]);
-dialog.on('builtin.intent.calendar.connect_to_meeting', [ displayEntities ]);
 
 /* Communication */
 

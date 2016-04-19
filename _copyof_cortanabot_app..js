@@ -1,21 +1,9 @@
 var builder = require('botbuilder');
-var restify = require('restify');
-
-var server = restify.createServer();
-
-var BOT_ID = process.env.BOT_APP_ID;
-var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
 
 // Create LUIS Dialog that points at our model and add it as the root '/' dialog for our Cortana Bot.
 var model = process.env.LUIS_MODEL_URL; //'<your models url>';
 var dialog = new builder.LuisDialog(model);
-
-//var cortanaBot = new builder.TextBot();
-var cortanaBot = new builder.BotConnectorBot({
-    appId: BOT_ID,
-    appSecret: PRIMARY_SECRET
-});
-
+var cortanaBot = new builder.TextBot();
 cortanaBot.add('/', dialog);
 
 // Add intent handlers
@@ -33,19 +21,6 @@ dialog.on('builtin.intent.communication.send_email', [
         session.send(JSON.stringify(args.entities));
     }
 ]);
-
 dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand. I can only create & delete alarms."));
 
-//cortanaBot.listenStdin();
-
-server.use(cortanaBot.verifyBotFramework({
-    appId: BOT_ID,
-    appSecret: PRIMARY_SECRET
-}));
-//server.use(helloBot.verifyBotFramework());
-server.post('/v1/messages', cortanaBot.listen());
-//server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
-
-server.listen(process.env.port || 8080, function() {
-    console.log('%s listening to %s', server.name, server.url);
-});
+cortanaBot.listenStdin();

@@ -28,13 +28,13 @@ dialog.on('builtin.intent.places.get_travel_time', [
     }
 ]);
 
-dialog.on('builtin.intent.communication.send_email', [
-    function(session, args) {
-        session.send(JSON.stringify(args.entities));
-    }
-]);
+dialog.on('builtin.intent.communication.send_email', [ displayEntities ]);
 
 dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand. I can only create & delete alarms."));
+
+function displayEntities(session, args) {
+     session.send(JSON.stringify(args.entities));
+}
 
 //cortanaBot.listenStdin();
 

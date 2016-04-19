@@ -93,9 +93,9 @@ dialog.on('builtin.intent.weather.show_weather_progression', [ displayEntities ]
 
 /* None */
 
-dialog.on('builtin.intent.none', [ displayEntities ]);
+//dialog.on('builtin.intent.none', [ displayEntities ]);
 
-dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand."));
+dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand. You can try other actions related to calendars, reminders, communication (e.g Email), searching your stuff, and the weather."));
 
 function displayEntities(session, args) {
      session.send(JSON.stringify(args.entities));

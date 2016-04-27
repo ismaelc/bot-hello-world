@@ -7,7 +7,8 @@ var BOT_ID = process.env.BOT_APP_ID;
 var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
 
 // Create LUIS Dialog that points at our model and add it as the root '/' dialog for our Cortana Bot.
-var model = process.env.LUIS_MODEL_URL; //'<your models url>';
+//var model = process.env.LUIS_MODEL_URL; //'<your models url>';
+var model = process.env.CONCUR_MODEL_URL;
 var dialog = new builder.LuisDialog(model);
 
 //var cortanaBot = new builder.TextBot();
@@ -20,7 +21,11 @@ cortanaBot.add('/', dialog);
 
 // Add intent handlers
 
+/* Concur Intents */
+dialog.on('SearchIntent', [displayEntities]);
+
 /* Calendar */
+
 dialog.on('builtin.intent.calendar.change_calendar_entry', [displayEntities]);
 dialog.on('builtin.intent.calendar.check_availability', [displayEntities]);
 dialog.on('builtin.intent.calendar.connect_to_meeting', [displayEntities]);

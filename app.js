@@ -26,6 +26,7 @@ dialog.on('SearchIntent', [displayEntities]);
 
 /* Calendar */
 
+/*
 dialog.on('builtin.intent.calendar.change_calendar_entry', [displayEntities]);
 dialog.on('builtin.intent.calendar.check_availability', [displayEntities]);
 dialog.on('builtin.intent.calendar.connect_to_meeting', [displayEntities]);
@@ -38,25 +39,31 @@ dialog.on('builtin.intent.calendar.find_calendar_who', [displayEntities]);
 dialog.on('builtin.intent.calendar.find_calendar_why', [displayEntities]);
 dialog.on('builtin.intent.calendar.find_duration', [displayEntities]);
 dialog.on('builtin.intent.calendar.time_remaining', [displayEntities]);
+*/
 
 /* Communication */
 
+/*
 dialog.on('builtin.intent.communication.add_contact', [displayEntities]);
 dialog.on('builtin.intent.communication.assign_nickname', [displayEntities]);
 dialog.on('builtin.intent.communication.find_contact', [displayEntities]);
 dialog.on('builtin.intent.communication.read_aloud', [displayEntities]);
 dialog.on('builtin.intent.communication.send_email', [displayEntities]);
 dialog.on('builtin.intent.communication.send_text', [displayEntities]);
+*/
 
 /* My Stuff */
 
+/*
 dialog.on('builtin.intent.mystuff.find_attachment', [displayEntities]);
 dialog.on('builtin.intent.mystuff.find_my_stuff', [displayEntities]);
 dialog.on('builtin.intent.mystuff.search_messages', [displayEntities]);
 dialog.on('builtin.intent.mystuff.transform_my_stuff', [displayEntities]);
+*/
 
 /* Places */
 
+/*
 dialog.on('builtin.intent.places.add_favorite_place', [displayEntities]);
 dialog.on('builtin.intent.places.book_public_transportation', [displayEntities]);
 dialog.on('builtin.intent.places.book_taxi', [displayEntities]);
@@ -73,9 +80,11 @@ dialog.on('builtin.intent.places.get_transportation_schedule', [displayEntities]
 dialog.on('builtin.intent.places.get_travel_time', [displayEntities]);
 dialog.on('builtin.intent.places.make_call', [displayEntities]);
 dialog.on('builtin.intent.places.show_map', [displayEntities]);
+*/
 
 /* Reminder */
 
+/*
 dialog.on('builtin.intent.reminder.change_reminder', [displayEntities]);
 dialog.on('builtin.intent.reminder.create_single_reminder', [displayEntities]);
 dialog.on('builtin.intent.reminder.delete_reminder', [displayEntities]);
@@ -83,9 +92,11 @@ dialog.on('builtin.intent.reminder.find_reminder', [displayEntities]);
 dialog.on('builtin.intent.reminder.read_aloud', [displayEntities]);
 dialog.on('builtin.intent.reminder.snooze', [displayEntities]);
 dialog.on('builtin.intent.reminder.turn_off_reminder', [displayEntities]);
+*/
 
 /* Weather */
 
+/*
 dialog.on('builtin.intent.weather.change_temperature_unit', [displayEntities]);
 dialog.on('builtin.intent.weather.check_weather', [displayEntities]);
 dialog.on('builtin.intent.weather.check_weather_facts', [displayEntities]);
@@ -95,6 +106,7 @@ dialog.on('builtin.intent.weather.get_weather_advisory', [displayEntities]);
 dialog.on('builtin.intent.weather.get_weather_maps', [displayEntities]);
 dialog.on('builtin.intent.weather.question_weather', [displayEntities]);
 dialog.on('builtin.intent.weather.show_weather_progression', [displayEntities]);
+*/
 
 /* None */
 

@@ -29,20 +29,64 @@ companyBot.add('/', dialog);
 /* Concur Intents */
 //dialog.on('SearchIntent', [displayEntities]);
 //dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
-dialog.on('SearchIntent', [startSearch]);
+dialog.on('SearchIntent', [
+    getQuery,
+    searchQuery,
+    sendReply
+]);
 
 
-function startSearch(session, args) {
+function getQuery(session, args, next) {
 
     var entity_query = builder.EntityRecognizer.findEntity(args.entities, 'query');
     console.log(JSON.stringify(entity_query.entity)); // the search query is in 'entity'
-    //next({ response: query.entity });  
-    //session.send(JSON.stringify(query));
 
-    session.userData.query = entity_query.entity;
-    builder.DialogAction.beginDialog('/search');
+    next({
+        response: entity_query.entity
+    });
 }
 
+function searchQuery(session, results, next) {
+
+    var query = results.response;
+    callGoogleSearchAPI(query, function(err, data) {
+        next({
+            response: data,
+            error: err
+        });
+    });
+}
+
+function sendReply(session, results) {
+    console.log("Replying: " + JSON.stringify(results));
+    session.send(JSON.stringify(results) + "\n\n");
+}
+
+function callGoogleSearchAPI(query, callback_) {
+
+    if (!query) return;
+
+    var options = {
+        url: 'https://www.googleapis.com/customsearch/v1?key=' + GOOGLE_API_KEY + '&cx=' + GOOGLE_CUSTOMSEARCH_CX + '&q=' + query,
+    };
+
+    function callback(error, response, body) {
+        var result = {};
+        if (!error && response.statusCode == 200) {
+            result = JSON.parse(body);
+            console.log('Response from Google: ' + JSON.stringify(result));
+        } else {
+            console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
+        }
+
+        callback_(error, result);
+
+    }
+
+    request(options, callback);
+}
+
+/*
 companyBot.add('/search', [
 
     function(session, results, next) {
@@ -74,12 +118,14 @@ companyBot.add('/search', [
         }
 
     },
+    
 
     function(session, results) {
         console.log("Gets here");
         session.send(JSON.stringify(results.response) + "\n\n");
     }
 ]);
+*/
 
 /* Calendar */
 

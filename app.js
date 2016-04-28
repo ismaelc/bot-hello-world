@@ -1,5 +1,6 @@
 var builder = require('botbuilder');
 var restify = require('restify');
+var request = require('request');
 
 var server = restify.createServer();
 
@@ -12,17 +13,25 @@ var model = process.env.CONCUR_MODEL_URL;
 var dialog = new builder.LuisDialog(model);
 
 //var cortanaBot = new builder.TextBot();
-var cortanaBot = new builder.BotConnectorBot({
+var companyBot = new builder.BotConnectorBot({
     appId: BOT_ID,
     appSecret: PRIMARY_SECRET
 });
 
-cortanaBot.add('/', dialog);
+companyBot.add('/', dialog);
 
 // Add intent handlers
 
 /* Concur Intents */
+//dialog.on('SearchIntent', [displayEntities]);
 dialog.on('SearchIntent', [displayEntities]);
+
+companyBot.add('/search', [
+    
+    function(session, args) {
+        displayEntities(session, args);
+    }
+]);
 
 /* Calendar */
 
@@ -121,12 +130,12 @@ function displayEntities(session, args) {
 
 //cortanaBot.listenStdin();
 
-server.use(cortanaBot.verifyBotFramework({
+server.use(companyBot.verifyBotFramework({
     appId: BOT_ID,
     appSecret: PRIMARY_SECRET
 }));
 //server.use(helloBot.verifyBotFramework());
-server.post('/v1/messages', cortanaBot.listen());
+server.post('/v1/messages', companyBot.listen());
 //server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
 
 server.listen(process.env.port || 8080, function() {

@@ -46,9 +46,11 @@ function startSearch(session, args) {
 companyBot.add('/search', [
 
     function(session, results, next) {
-        //displayEntities(session, args);
 
-        if (!session.userData.query) {} else {
+        if (!session.userData.query) {
+            console.log('Query is empty');
+        } else {
+            console.log('About to call API...');
             var options = {
                 url: 'https://www.googleapis.com/customsearch/v1?key=' + GOOGLE_API_KEY + '&cx=' + GOOGLE_CUSTOMSEARCH_CX + '&q=expense',
             };
@@ -61,7 +63,6 @@ companyBot.add('/search', [
                 } else {
                     console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
                 }
-
 
                 next({
                     response: result

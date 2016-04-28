@@ -28,7 +28,16 @@ companyBot.add('/', dialog);
 
 /* Concur Intents */
 //dialog.on('SearchIntent', [displayEntities]);
-dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
+//dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
+dialog.on('SearchIntent', [startSearch]);
+
+
+function startSearch(session, args) {
+    var query = args.entities;
+    console.log(JSON.stringify(query));
+    //next({ response: query.entity });  
+    session.send(JSON.stringify(query));
+}
 
 companyBot.add('/search', [
 

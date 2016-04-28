@@ -33,7 +33,8 @@ dialog.on('SearchIntent', [startSearch]);
 
 
 function startSearch(session, args) {
-    var query = builder.EntityRecognizer.findEntity(args.entities, 'query');
+
+    var query = builder.EntityRecognizer.findEntity(args.entities, 'command');
     console.log(JSON.stringify(query));
     //next({ response: query.entity });  
     session.send(JSON.stringify(query));

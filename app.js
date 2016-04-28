@@ -33,7 +33,8 @@ dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
 companyBot.add('/search', [
 
     function(session, args, next) {
-        var query = builder.EntityRecognizer.findEntity(args.entities, 'query');     
+        //var query = builder.EntityRecognizer.findEntity(args.entities, 'query');     
+        var query = args.entities;
         console.log(JSON.stringify(query));
         next({ response: query.entity });  
     },

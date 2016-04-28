@@ -32,7 +32,7 @@ dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
 
 companyBot.add('/search', [
 
-    function(session, args) {
+    function(session, args, next) {
         //displayEntities(session, args);
 
         var options = {
@@ -43,7 +43,7 @@ companyBot.add('/search', [
             var result = {};
             if (!error && response.statusCode == 200) {
                 result = JSON.parse(body);
-                console.log('Response from Box: ' + JSON.stringify(result));
+                console.log('Response from Google: ' + JSON.stringify(result));
             } else {
                 console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
             }

@@ -32,11 +32,12 @@ dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
 
 companyBot.add('/search', [
 
-    function(session, args, next) {
+    function(session, args) {
         //var query = builder.EntityRecognizer.findEntity(args.entities, 'query');     
         var query = args.entities;
         console.log(JSON.stringify(query));
-        next({ response: query.entity });  
+        //next({ response: query.entity });  
+        session.send(JSON.stringify(query));
     },
     /*
     function(session, results, next) {

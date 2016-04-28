@@ -84,7 +84,18 @@ function formatReply(session, results, next) {
 
 function sendReply(session, results) {
     console.log("Replying: " + results['response']);
-    session.send(JSON.stringify(results));
+
+    var dummy = {
+        "text": "hello, world!",
+        "username": "A. Nonymous",
+        "attachments": [{
+            "pretext": "pre-hello",
+            "text": "text-world"
+        }],
+        "icon_url": "http://lorempixel.com/48/48"
+    }
+
+    session.send(JSON.stringify(dummy));
 }
 
 function callGoogleSearchAPI(query, callback_) {

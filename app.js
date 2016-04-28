@@ -64,19 +64,19 @@ function formatReply(session, results, next) {
     console.log('Entered formatReply()..');
     var formatted_reply = '';
     var api_response = results['response'];
-    
-    for(var i = 0, len = api_response['items'].length; i < len; i++) {
+
+    for (var i = 0, len = api_response['items'].length; i < len; i++) {
         formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
     }
-    
+
     /*
     next({
         response: 'Items length: ' + api_response['items'].length
     });
     */
-    
+
     console.log('formatted_reply: ' + formatted_reply);
-    
+
     next({
         response: formatted_reply
     });
@@ -84,7 +84,7 @@ function formatReply(session, results, next) {
 
 function sendReply(session, results) {
     console.log("Replying: " + results['response']);
-    session.send(JSON.stringify(results['response']) + "\n\n");
+    session.send(JSON.stringify(results));
 }
 
 function callGoogleSearchAPI(query, callback_) {

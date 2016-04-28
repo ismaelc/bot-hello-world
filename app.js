@@ -64,14 +64,22 @@ function formatReply(session, results, next) {
     var formatted_reply = '';
     var api_response = results['response'];
     
+    for(var i = 0, len = api_response['items'].length; i < len; i++) {
+        formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
+    }
+    
+    /*
     next({
         response: 'Items length: ' + api_response['items'].length
     });
+    */
+    
+    next(formatted_reply);
 }
 
 function sendReply(session, results) {
-    console.log("Replying: " + JSON.stringify(results));
-    session.send(JSON.stringify(results) + "\n\n");
+    console.log("Replying: " + results);
+    session.send(results + "\n\n");
 }
 
 function callGoogleSearchAPI(query, callback_) {

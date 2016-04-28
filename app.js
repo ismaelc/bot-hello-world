@@ -24,7 +24,7 @@ companyBot.add('/', dialog);
 
 /* Concur Intents */
 //dialog.on('SearchIntent', [displayEntities]);
-dialog.on('SearchIntent', builder.DialogAction.beginDialog('/session'));
+dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
 
 companyBot.add('/search', [
     

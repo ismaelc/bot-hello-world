@@ -77,12 +77,14 @@ function formatReply(session, results, next) {
     
     console.log('formatted_reply: ' + formatted_reply);
     
-    next(formatted_reply);
+    next({
+        response: formatted_reply
+    });
 }
 
 function sendReply(session, results) {
-    console.log("Replying: " + results);
-    session.send(results + "\n\n");
+    console.log("Replying: " + results['response']);
+    session.send(results['response'] + "\n\n");
 }
 
 function callGoogleSearchAPI(query, callback_) {

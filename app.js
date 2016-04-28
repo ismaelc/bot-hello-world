@@ -37,7 +37,7 @@ companyBot.add('/search', [
         console.log(JSON.stringify(query));
         next({ response: query.entity });  
     },
-
+    /*
     function(session, results, next) {
         //displayEntities(session, args);
 
@@ -64,7 +64,7 @@ companyBot.add('/search', [
         request(options, callback);
 
     },
-
+    */
     function(session, results) {
         console.log("Gets here");
         session.send(JSON.stringify(results.response) + "\n\n");

@@ -61,6 +61,7 @@ function searchQuery(session, results, next) {
 }
 
 function formatReply(session, results, next) {
+    console.log('Entered formatReply()..');
     var formatted_reply = '';
     var api_response = results['response'];
     
@@ -73,6 +74,8 @@ function formatReply(session, results, next) {
         response: 'Items length: ' + api_response['items'].length
     });
     */
+    
+    console.log('formatted_reply: ' + formatted_reply);
     
     next(formatted_reply);
 }

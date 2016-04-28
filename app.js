@@ -36,6 +36,12 @@ dialog.on('SearchIntent', [
     sendReply
 ]);
 
+dialog.on('None', [
+    function (session, args) {
+        session.send('I didn\'t quite get that. Can you rephrase it to an instruction?');
+    }
+]);
+
 
 function getQuery(session, args, next) {
 

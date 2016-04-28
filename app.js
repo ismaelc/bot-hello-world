@@ -77,25 +77,24 @@ function formatReply(session, results, next) {
 
     console.log('formatted_reply: ' + formatted_reply);
 
+    var slack_format_message = {
+        "text": "Here's what I found!",
+        //"username": "A. Nonymous",
+        "attachments": [{
+            //"pretext": "pre-hello",
+            "text": formatted_reply
+        }],
+        "icon_url": "http://lorempixel.com/48/48" // doesn't work
+    }
+
     next({
-        response: formatted_reply
+        response: slack_format_message
     });
 }
 
 function sendReply(session, results) {
     console.log("Replying: " + results['response']);
-
-    var dummy = {
-        "text": "hello, world!",
-        "username": "A. Nonymous",
-        "attachments": [{
-            "pretext": "pre-hello",
-            "text": "text-world"
-        }],
-        "icon_url": "http://lorempixel.com/48/48"
-    }
-
-    session.send(dummy);
+    session.send(results['response']);
 }
 
 function callGoogleSearchAPI(query, callback_) {

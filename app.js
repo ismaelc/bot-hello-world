@@ -14,8 +14,6 @@ var GOOGLE_CUSTOMSEARCH_CX = process.env.GOOGLE_CUSTOMSEARCH_CX;
 var model = process.env.CONCUR_MODEL_URL;
 var dialog = new builder.LuisDialog(model);
 
-
-
 //var cortanaBot = new builder.TextBot();
 var companyBot = new builder.BotConnectorBot({
     appId: BOT_ID,
@@ -42,7 +40,7 @@ dialog.on('SearchIntent', [
 function getQuery(session, args, next) {
 
     var entity_query = builder.EntityRecognizer.findEntity(args.entities, 'query');
-    console.log(JSON.stringify(entity_query.entity)); // the search query is in 'entity'
+    console.log('Query: ' + JSON.stringify(entity_query.entity)); // the search query is in 'entity'
 
     next({
         response: entity_query.entity

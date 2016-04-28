@@ -6,11 +6,15 @@ var server = restify.createServer();
 
 var BOT_ID = process.env.BOT_APP_ID;
 var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
+var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+var GOOGLE_CUSTOMSEARCH_CX = process.env.GOOGLE_CUSTOMSEARCH_CX;
 
 // Create LUIS Dialog that points at our model and add it as the root '/' dialog for our Cortana Bot.
 //var model = process.env.LUIS_MODEL_URL; //'<your models url>';
 var model = process.env.CONCUR_MODEL_URL;
 var dialog = new builder.LuisDialog(model);
+
+
 
 //var cortanaBot = new builder.TextBot();
 var companyBot = new builder.BotConnectorBot({
@@ -27,9 +31,37 @@ companyBot.add('/', dialog);
 dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
 
 companyBot.add('/search', [
-    
+
     function(session, args) {
-        displayEntities(session, args);
+        //displayEntities(session, args);
+
+        var options = {
+            url: 'https://www.googleapis.com/customsearch/v1?key=' + GOOGLE_API_KEY + '&cx=' + GOOGLE_CUSTOMSEARCH_CX + '&q=expense',
+        };
+
+        function callback(error, response, body) {
+            var result = {};
+            if (!error && response.statusCode == 200) {
+                result = JSON.parse(body);
+                console.log('Response from Box: ' + JSON.stringify(result));
+            } else {
+                console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
+            }
+
+
+            next({
+                response: result
+            });
+
+        }
+
+        request(options, callback);
+
+    },
+
+    function(session, results) {
+        console.log("Gets here");
+        session.send(JSON.stringify(results.response) + "\n\n");
     }
 ]);
 

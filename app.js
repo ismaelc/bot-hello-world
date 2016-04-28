@@ -95,7 +95,7 @@ function sendReply(session, results) {
         "icon_url": "http://lorempixel.com/48/48"
     }
 
-    session.send(JSON.stringify(dummy));
+    session.send(dummy);
 }
 
 function callGoogleSearchAPI(query, callback_) {

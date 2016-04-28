@@ -84,7 +84,7 @@ function formatReply(session, results, next) {
 
 function sendReply(session, results) {
     console.log("Replying: " + results['response']);
-    session.send(results['response'] + "\n\n");
+    session.send(JSON.stringify(results['response']) + "\n\n");
 }
 
 function callGoogleSearchAPI(query, callback_) {

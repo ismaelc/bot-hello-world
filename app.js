@@ -34,49 +34,46 @@ dialog.on('SearchIntent', [startSearch]);
 
 function startSearch(session, args) {
 
-    var query = builder.EntityRecognizer.findEntity(args.entities, 'command');
-    console.log(JSON.stringify(query));
+    var entity_query = builder.EntityRecognizer.findEntity(args.entities, 'query');
+    console.log(JSON.stringify(entity_query.entity)); // the search query is in 'entity'
     //next({ response: query.entity });  
-    session.send(JSON.stringify(query));
+    //session.send(JSON.stringify(query));
+
+    session.userData.query = entity_query.entity;
+    builder.DialogAction.beginDialog('/search');
 }
 
 companyBot.add('/search', [
 
-    function(session, args) {
-        //var query = builder.EntityRecognizer.findEntity(args.entities, 'query');     
-        var query = args.entities;
-        console.log(JSON.stringify(query));
-        //next({ response: query.entity });  
-        session.send(JSON.stringify(query));
-    },
-    /*
     function(session, results, next) {
         //displayEntities(session, args);
 
-        var options = {
-            url: 'https://www.googleapis.com/customsearch/v1?key=' + GOOGLE_API_KEY + '&cx=' + GOOGLE_CUSTOMSEARCH_CX + '&q=expense',
-        };
+        if (!session.userData.query) {} else {
+            var options = {
+                url: 'https://www.googleapis.com/customsearch/v1?key=' + GOOGLE_API_KEY + '&cx=' + GOOGLE_CUSTOMSEARCH_CX + '&q=expense',
+            };
 
-        function callback(error, response, body) {
-            var result = {};
-            if (!error && response.statusCode == 200) {
-                result = JSON.parse(body);
-                console.log('Response from Google: ' + JSON.stringify(result));
-            } else {
-                console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
+            function callback(error, response, body) {
+                var result = {};
+                if (!error && response.statusCode == 200) {
+                    result = JSON.parse(body);
+                    console.log('Response from Google: ' + JSON.stringify(result));
+                } else {
+                    console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
+                }
+
+
+                next({
+                    response: result
+                });
+
             }
 
-
-            next({
-                response: result
-            });
-
+            request(options, callback);
         }
 
-        request(options, callback);
-
     },
-    */
+
     function(session, results) {
         console.log("Gets here");
         session.send(JSON.stringify(results.response) + "\n\n");

@@ -28,10 +28,13 @@ companyBot.add('/', dialog);
 
 /* Concur Intents */
 //dialog.on('SearchIntent', [displayEntities]);
-//dialog.on('SearchIntent', builder.DialogAction.beginDialog('/search'));
+
+// NOTE: custom dialog doesn't support 'next' off the bat? 
+// So have to rely on this format..
 dialog.on('SearchIntent', [
     getQuery,
     searchQuery,
+    formatReply,
     sendReply
 ]);
 
@@ -54,6 +57,15 @@ function searchQuery(session, results, next) {
             response: data,
             error: err
         });
+    });
+}
+
+function formatReply(session, results, next) {
+    var formatted_reply = '';
+    var api_response = results['response'];
+    
+    next({
+        response: 'Items length: ' + api_response['items'].length
     });
 }
 
@@ -85,47 +97,6 @@ function callGoogleSearchAPI(query, callback_) {
 
     request(options, callback);
 }
-
-/*
-companyBot.add('/search', [
-
-    function(session, results, next) {
-
-        if (!session.userData.query) {
-            console.log('Query is empty');
-        } else {
-            console.log('About to call API...');
-            var options = {
-                url: 'https://www.googleapis.com/customsearch/v1?key=' + GOOGLE_API_KEY + '&cx=' + GOOGLE_CUSTOMSEARCH_CX + '&q=expense',
-            };
-
-            function callback(error, response, body) {
-                var result = {};
-                if (!error && response.statusCode == 200) {
-                    result = JSON.parse(body);
-                    console.log('Response from Google: ' + JSON.stringify(result));
-                } else {
-                    console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
-                }
-
-                next({
-                    response: result
-                });
-
-            }
-
-            request(options, callback);
-        }
-
-    },
-    
-
-    function(session, results) {
-        console.log("Gets here");
-        session.send(JSON.stringify(results.response) + "\n\n");
-    }
-]);
-*/
 
 /* Calendar */
 

@@ -68,9 +68,19 @@ function formatReply(session, results, next) {
     console.log('Entered formatReply()..');
     var formatted_reply = '';
     var api_response = results['response'];
+    
+    var attachments = [];
 
     for (var i = 0, len = api_response['items'].length; i < len; i++) {
         formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
+        var item = api_response['items'][i];
+        
+        var attachment = {
+            "title" : item['title'] + ' (' + item['link'] + ')',
+            "text"  : item['snippet']
+        }
+        
+        attachments.push(attachment);
     }
 
     /*
@@ -81,6 +91,7 @@ function formatReply(session, results, next) {
 
     console.log('formatted_reply: ' + formatted_reply);
 
+    /*
     var dummy = {
 
         "attachments": [{
@@ -119,19 +130,23 @@ function formatReply(session, results, next) {
             "thumb_url": "http://example.com/path/to/thumb.png"
         }]
     }
+    */
 
     var slack_format_message = {
         "text": "Here's what I found!",
         //"username": "A. Nonymous",
+        /*
         "attachments": [{
             //"pretext": "pre-hello",
             "text": formatted_reply
         }],
+        */
+        "attachments" : attachments,
         "icon_url": "http://lorempixel.com/48/48" // doesn't work
     }
 
     next({
-        response: dummy // slack_format_message
+        response: slack_format_message
     });
 }
 

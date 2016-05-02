@@ -119,7 +119,7 @@ function formatReply(session, results, next) {
 
     console.log('attachments: ' + JSON.stringify(attachments));
 
-    /*
+    
     var dummy = {
 
         "attachments": [{
@@ -158,7 +158,7 @@ function formatReply(session, results, next) {
             "thumb_url": "http://example.com/path/to/thumb.png"
         }]
     }
-    */
+    
 
     // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
     var slack_format_message = {
@@ -166,7 +166,7 @@ function formatReply(session, results, next) {
         "attachments": attachments
     }
     
-    //slack_format_message = dummy;
+    slack_format_message = dummy;
 
     next({
         response: slack_format_message

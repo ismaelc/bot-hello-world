@@ -150,7 +150,7 @@ function formatReply(session, results, next) {
 }
 
 function sendReply(session, results) {
-    console.log("Replying: " + JSON.stringify(results['response']);
+    console.log("Replying: " + JSON.stringify(results['response']));
     session.send(results['response']);
 }
 

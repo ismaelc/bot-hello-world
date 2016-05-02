@@ -60,6 +60,16 @@ function getQuery(session, args, next) {
     });
 }
 
+function getBoxQuery(session, args, next) {
+
+    var entity_query = builder.EntityRecognizer.findEntity(args.entities, 'filetype');
+    console.log('Query: ' + JSON.stringify(entity_query.entity)); // the search query is in 'entity'
+
+    next({
+        response: entity_query.entity
+    });
+}
+
 function searchQuery(session, results, next) {
 
     var query = results.response;
@@ -156,7 +166,7 @@ function formatReply(session, results, next) {
         "attachments": attachments
     }
     
-    slack_format_message = dummy;
+    //slack_format_message = dummy;
 
     next({
         response: slack_format_message

@@ -119,7 +119,7 @@ function formatReply(session, results, next) {
 
     console.log('attachments: ' + JSON.stringify(attachments));
 
-    
+
     var dummy = {
 
         "attachments": [{
@@ -158,14 +158,14 @@ function formatReply(session, results, next) {
             "thumb_url": "http://example.com/path/to/thumb.png"
         }]
     }
-    
+
 
     // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
     var slack_format_message = {
         "text": "Here's what I found!",
         "attachments": attachments
     }
-    
+
     slack_format_message = dummy;
 
     next({
@@ -175,7 +175,13 @@ function formatReply(session, results, next) {
 
 function sendReply(session, results) {
     console.log("Replying: " + JSON.stringify(results['response']));
-    session.send(results['response']);
+    //session.send(results['response']);
+    session.send({
+        "text": "I am a test message http://slack.com",
+        "attachments": [{
+            "text": "And here's an attachment!"
+        }]
+    });
 }
 
 function callGoogleSearchAPI(query, callback_) {

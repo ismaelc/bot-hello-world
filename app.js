@@ -8,6 +8,7 @@ var BOT_ID = process.env.BOT_APP_ID;
 var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
 var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 var GOOGLE_CUSTOMSEARCH_CX = process.env.GOOGLE_CUSTOMSEARCH_CX;
+var BOX_API_KEY = process.env.BOX_API_KEY;
 
 // Create LUIS Dialog that points at our model and add it as the root '/' dialog for our Cortana Bot.
 //var model = process.env.LUIS_MODEL_URL; //'<your models url>';
@@ -33,6 +34,11 @@ dialog.on('SearchIntent', [
     getQuery,
     searchQuery,
     formatReply,
+    sendReply
+]);
+
+dialog.on('BoxIntent', [
+    getQuery,
     sendReply
 ]);
 
@@ -68,18 +74,18 @@ function formatReply(session, results, next) {
     console.log('Entered formatReply()..');
     var formatted_reply = '';
     var api_response = results['response'];
-    
+
     var attachments = [];
 
     for (var i = 0, len = api_response['items'].length; i < len; i++) {
         formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
         var item = api_response['items'][i];
-        
+
         var attachment = {
-            "title" : item['title'] + ' (' + item['link'] + ')',
-            "text"  : item['snippet']
+            "title": item['title'] + ' (' + item['link'] + ')',
+            "text": item['snippet']
         }
-        
+
         attachments.push(attachment);
     }
 
@@ -132,17 +138,10 @@ function formatReply(session, results, next) {
     }
     */
 
+    // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
     var slack_format_message = {
         "text": "Here's what I found!",
-        //"username": "A. Nonymous",
-        /*
-        "attachments": [{
-            //"pretext": "pre-hello",
-            "text": formatted_reply
-        }],
-        */
-        "attachments" : attachments,
-        "icon_url": "http://lorempixel.com/48/48" // doesn't work
+        "attachments": attachments
     }
 
     next({
@@ -267,7 +266,7 @@ dialog.on('builtin.intent.weather.show_weather_progression', [displayEntities]);
 
 //dialog.on('builtin.intent.none', [ displayEntities ]);
 
-dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand. You can try other actions related to calendars, reminders, communication (e.g Email), searching your stuff, and the weather."));
+//dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand. You can try other actions related to calendars, reminders, communication (e.g Email), searching your stuff, and the weather."));
 
 function displayEntities(session, args) {
     console.log("Session: " + JSON.stringify("User data: " + JSON.stringify(session.userData)));

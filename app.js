@@ -152,9 +152,11 @@ function formatReply(session, results, next) {
 
     // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
     var slack_format_message = {
-        //"text": "Here's what I found!",
+        "text": "Here's what I found!",
         "attachments": attachments
     }
+    
+    slack_format_message = dummy;
 
     next({
         response: slack_format_message

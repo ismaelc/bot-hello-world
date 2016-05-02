@@ -39,6 +39,7 @@ dialog.on('SearchIntent', [
 
 dialog.on('BoxIntent', [
     getQuery,
+    //searchBoxQuery,
     sendReply
 ]);
 
@@ -63,6 +64,17 @@ function searchQuery(session, results, next) {
 
     var query = results.response;
     callGoogleSearchAPI(query, function(err, data) {
+        next({
+            response: data,
+            error: err
+        });
+    });
+}
+
+function searchBoxQuery(session, results, next) {
+
+    var query = results.response;
+    callBoxSearchAPI(query, function(err, data) {
         next({
             response: data,
             error: err
@@ -167,6 +179,33 @@ function callGoogleSearchAPI(query, callback_) {
         if (!error && response.statusCode == 200) {
             result = JSON.parse(body);
             console.log('Response from Google: ' + JSON.stringify(result));
+        } else {
+            console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
+        }
+
+        callback_(error, result);
+
+    }
+
+    request(options, callback);
+}
+
+function callBoxSearchAPI(query, callback_) {
+
+    if (!query) return;
+
+    var options = {
+        url: 'https://api.box.com/2.0/search?query=' + query,
+        headers: {
+            'Authorization': 'Bearer ' + process.env.BOX_API_KEY
+        }
+    };
+
+    function callback(error, response, body) {
+        var result = {};
+        if (!error && response.statusCode == 200) {
+            result = JSON.parse(body);
+            console.log('Response from Box: ' + JSON.stringify(result));
         } else {
             console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
         }

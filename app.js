@@ -95,7 +95,7 @@ function formatReply(session, results, next) {
     });
     */
 
-    console.log('formatted_reply: ' + formatted_reply);
+    console.log('attachments: ' + JSON.stringify(attachments));
 
     /*
     var dummy = {
@@ -150,7 +150,7 @@ function formatReply(session, results, next) {
 }
 
 function sendReply(session, results) {
-    console.log("Replying: " + results['response']);
+    console.log("Replying: " + JSON.stringify(results['response']);
     session.send(results['response']);
 }
 

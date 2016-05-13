@@ -117,6 +117,8 @@ function formatReply(session, results, next) {
             "thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
         }
 
+        console.log(attachment + '\n');
+
         attachments.push(attachment);
     }
 

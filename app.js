@@ -110,8 +110,8 @@ function formatReply(session, results, next) {
         formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
         var item = api_response['items'][i];
         var thumbnail = 'http://placehold.it/65x65';
-        if(typeof item['pagemap']['cse_image'][0]['src'] != 'undefined')
-            thumbnail = item['pagemap']['cse_image'][0]['src'];
+        if(typeof item['pagemap']['cse_thumbnail'] != 'undefined')
+            thumbnail = item['pagemap']['cse_thumbnail'][0]['src'];
 
         var attachment = {
             "title": item['title'], // + ' (' + item['link'] + ')',

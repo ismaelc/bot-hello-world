@@ -406,7 +406,7 @@ server.use(companyBot.verifyBotFramework({
 server.post('/v1/messages', companyBot.listen());
 //server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
 
-server.get('/redirect'), function(request, response) {
+server.get('/redirect', function(request, response) {
     console.log("Request: " + JSON.stringify(request.query));
     response.send(JSON.stringify(request.query));
 });

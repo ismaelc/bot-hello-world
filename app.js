@@ -11,6 +11,10 @@ var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 var GOOGLE_CUSTOMSEARCH_CX = process.env.GOOGLE_CUSTOMSEARCH_CX;
 var SEARCH_RESULT_MAX = 5;
 
+var HOST = process.env.HOST;
+var CONCUR_CLIENT_ID = process.env.CONCUR_CLIENT_ID;
+var CONCUR_SCOPE = process.env.CONCUR_SCOPE;
+
 //var BOX_API_KEY = process.env.BOX_API_KEY;
 
 // Create LUIS Dialog that points at our model and add it as the root '/' dialog for our Cortana Bot.
@@ -40,9 +44,16 @@ dialog.on('SearchIntent', [
     sendReply
 ]);
 
+/*
 dialog.on('BoxIntent', [
     getQuery,
     //searchBoxQuery,
+    sendReply
+]);
+*/
+
+dialog.on('LoginIntent'), [
+    getService,
     sendReply
 ]);
 
@@ -52,6 +63,24 @@ dialog.on('None', [
     }
 ]);
 
+function getService(session, args, next) {
+
+    var entity_login = builder.EntityRecognizer.findEntity(args.entities, 'login_service');
+    console.log('Login: ' + JSON.stringify(entity_login.entity)); // the login service is in 'entity'
+    var auth_link;
+
+    switch(entity_login.entity.toLowerCase()) {
+        case 'concur':
+            auth_link = 'https://www.concursolutions.com/net2/oauth2/Login.aspx?client_id=' + CONCUR_CLIENT_ID + '&scope=' + CONCUR_SCOPE' + &redirect_uri=' + HOST + '/redirect&state='
+            break;
+        default:
+            auth_link = 'Wot?'
+    }
+
+    next({
+        response: auth_link
+    });
+}
 
 function getQuery(session, args, next) {
 

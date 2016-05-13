@@ -109,13 +109,14 @@ function formatReply(session, results, next) {
     for (var i = 0, len = api_response['items'].length; i < len; i++) {
         formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
         var item = api_response['items'][i];
+        var thumbnail = item['pagemap']['cse_image'][0]['src'] || 'http://placehold.it/65x65';
 
         var attachment = {
             "title": item['title'], // + ' (' + item['link'] + ')',
             "titleLink": item['link'],
             "text": item['snippet'],
             //"thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
-            "thumbnailUrl": item['pagemap']['cse_image'][0]['src'] || 'http://placehold.it/65x65'
+            "thumbnailUrl": thumbnail
         }
 
         console.log(attachment + '\n');

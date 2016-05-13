@@ -5,10 +5,10 @@ var request = require('request');
 var server = restify.createServer();
 
 var bodyParser = require('body-parser');
-app.use(bodyParser.json({
+server.use(bodyParser.json({
     limit: '50mb'
 })); // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({
+server.use(bodyParser.urlencoded({
     limit: '50mb',
     extended: true
 })); // to support URL-encoded bodies

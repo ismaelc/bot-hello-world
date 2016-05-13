@@ -106,7 +106,7 @@ function formatReply(session, results, next) {
 
     var attachments = [];
 
-    for (var i = 0, len = api_response['items'].length; i < len || i < GOOGLE_MAX_RESULT; i++) {
+    for (var i = 0, len = api_response['items'].length; i < len; i++) {
         formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
         var item = api_response['items'][i];
 

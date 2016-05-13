@@ -9,7 +9,7 @@ var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
 
 var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 var GOOGLE_CUSTOMSEARCH_CX = process.env.GOOGLE_CUSTOMSEARCH_CX;
-var SEARCH_RESULT_MAX = 5;
+var SEARCH_RESULT_MAX = 3;
 
 var HOST = process.env.HOST;
 var CONCUR_CLIENT_ID = process.env.CONCUR_CLIENT_ID;
@@ -57,11 +57,13 @@ dialog.on('LoginIntent', [
     sendReply
 ]);
 
+/*
 dialog.on('None', [
     function(session, args) {
         session.send('I didn\'t quite get that. Can you rephrase it to an instruction?');
     }
 ]);
+*/
 
 function getService(session, args, next) {
 

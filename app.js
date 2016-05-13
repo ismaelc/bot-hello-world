@@ -9,7 +9,7 @@ var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
 
 var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 var GOOGLE_CUSTOMSEARCH_CX = process.env.GOOGLE_CUSTOMSEARCH_CX;
-var GOOGLE_MAX_RESULT = 5;
+var SEARCH_RESULT_MAX = 5;
 
 //var BOX_API_KEY = process.env.BOX_API_KEY;
 
@@ -103,20 +103,20 @@ function formatReply(session, results, next) {
     console.log('Entered formatReply()..');
     var formatted_reply = '';
     var api_response = results['response'];
+    var len = api_response['items'].length;
+    if (len > SEARCH_RESULT_MAX) len = SEARCH_RESULT_MAX;
 
     var attachments = [];
 
-    for (var i = 0, len = api_response['items'].length; i < len; i++) {
+    for (var i = 0; i < len; i++) {
         formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
         var item = api_response['items'][i];
-        var thumbnail = 'http://placehold.it/65x65';
-        if(typeof(item['pagemap']['cse_thumbnail']) != 'undefined') {
+        var thumbnail = 'http://placehold.it/65x65'; // Need a better image missing placeholder
+        if (typeof(item['pagemap']['cse_thumbnail']) != 'undefined') {
             thumbnail = item['pagemap']['cse_thumbnail'][0]['src'];
+        } else {
+            console.log('Error: Can\'t show item ' + i + 1);
         }
-        else {
-            console.log('Error: ' + i + 1);
-        }
-
 
         var attachment = {
             "title": item['title'], // + ' (' + item['link'] + ')',

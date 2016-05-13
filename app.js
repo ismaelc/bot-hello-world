@@ -28,7 +28,7 @@ companyBot.add('/', dialog);
 /* Concur Intents */
 //dialog.on('SearchIntent', [displayEntities]);
 
-// NOTE: custom dialog doesn't support 'next' off the bat? 
+// NOTE: custom dialog doesn't support 'next' off the bat?
 // So have to rely on this format..
 dialog.on('SearchIntent', [
     getQuery,
@@ -60,6 +60,7 @@ function getQuery(session, args, next) {
     });
 }
 
+/*
 function getBoxQuery(session, args, next) {
 
     var entity_query = builder.EntityRecognizer.findEntity(args.entities, 'filetype');
@@ -69,6 +70,7 @@ function getBoxQuery(session, args, next) {
         response: entity_query.entity
     });
 }
+*/
 
 function searchQuery(session, results, next) {
 
@@ -81,6 +83,7 @@ function searchQuery(session, results, next) {
     });
 }
 
+/*
 function searchBoxQuery(session, results, next) {
 
     var query = results.response;
@@ -91,6 +94,7 @@ function searchBoxQuery(session, results, next) {
         });
     });
 }
+*/
 
 function formatReply(session, results, next) {
     console.log('Entered formatReply()..');
@@ -157,7 +161,7 @@ function formatReply(session, results, next) {
             "image_url": "http://my-website.com/path/to/image.jpg",
             "thumb_url": "http://example.com/path/to/thumb.png"
         }]
-        
+
     }
     */
 
@@ -212,6 +216,7 @@ function callGoogleSearchAPI(query, callback_) {
     request(options, callback);
 }
 
+/*
 function callBoxSearchAPI(query, callback_) {
 
     if (!query) return;
@@ -238,6 +243,7 @@ function callBoxSearchAPI(query, callback_) {
 
     request(options, callback);
 }
+*/
 
 /* Calendar */
 

@@ -6,9 +6,12 @@ var server = restify.createServer();
 
 var BOT_ID = process.env.BOT_APP_ID;
 var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
+
 var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 var GOOGLE_CUSTOMSEARCH_CX = process.env.GOOGLE_CUSTOMSEARCH_CX;
-var BOX_API_KEY = process.env.BOX_API_KEY;
+var GOOGLE_MAX_RESULT = 5;
+
+//var BOX_API_KEY = process.env.BOX_API_KEY;
 
 // Create LUIS Dialog that points at our model and add it as the root '/' dialog for our Cortana Bot.
 //var model = process.env.LUIS_MODEL_URL; //'<your models url>';
@@ -103,7 +106,7 @@ function formatReply(session, results, next) {
 
     var attachments = [];
 
-    for (var i = 0, len = api_response['items'].length; i < len; i++) {
+    for (var i = 0, len = api_response['items'].length; i < len || i < GOOGLE_MAX_RESULT; i++) {
         formatted_reply += '[' + (i + 1) + ']: ' + api_response['items'][i]['formattedUrl'] + '\n';
         var item = api_response['items'][i];
 
@@ -111,7 +114,7 @@ function formatReply(session, results, next) {
             "title": item['title'], // + ' (' + item['link'] + ')',
             "titleLink": item['link'],
             "text": item['snippet'],
-            "thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']        
+            "thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
         }
 
         attachments.push(attachment);

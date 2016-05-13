@@ -108,7 +108,7 @@ function formatReply(session, results, next) {
         var item = api_response['items'][i];
 
         var attachment = {
-            //"title": item['title'] + ' (' + item['link'] + ')',
+            "title": item['title'] + ' (' + item['link'] + ')',
             "text": item['snippet']
         }
 
@@ -168,7 +168,7 @@ function formatReply(session, results, next) {
 
     // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
     var slack_format_message = {
-        "text": "Here's what I found!<br>Test1<br>Test2",
+        "text": "Here's what I found!",
         "attachments": attachments
     }
 

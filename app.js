@@ -113,8 +113,8 @@ function formatReply(session, results, next) {
         var attachment = {
             "title": item['title'], // + ' (' + item['link'] + ')',
             "titleLink": item['link'],
-            "text": item['snippet'],
-            "thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
+            "text": item['snippet']
+            //"thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
         }
 
         console.log(attachment + '\n');

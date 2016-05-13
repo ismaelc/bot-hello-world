@@ -115,7 +115,7 @@ function formatReply(session, results, next) {
             "titleLink": item['link'],
             "text": item['snippet'],
             //"thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
-            "thumbnailUrl": item['cse_image'][0]['src']
+            "thumbnailUrl": item['pagemap']['cse_image'][0]['src']
         }
 
         console.log(attachment + '\n');

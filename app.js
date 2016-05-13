@@ -52,7 +52,7 @@ dialog.on('BoxIntent', [
 ]);
 */
 
-dialog.on('LoginIntent'), [
+dialog.on('LoginIntent', [
     getService,
     sendReply
 ]);
@@ -69,9 +69,9 @@ function getService(session, args, next) {
     console.log('Login: ' + JSON.stringify(entity_login.entity)); // the login service is in 'entity'
     var auth_link;
 
-    switch(entity_login.entity.toLowerCase()) {
+    switch (entity_login.entity.toLowerCase()) {
         case 'concur':
-            auth_link = 'https://www.concursolutions.com/net2/oauth2/Login.aspx?client_id=' + CONCUR_CLIENT_ID + '&scope=' + CONCUR_SCOPE' + &redirect_uri=' + HOST + '/redirect&state='
+            auth_link = 'https://www.concursolutions.com/net2/oauth2/Login.aspx?client_id=' + CONCUR_CLIENT_ID + '&scope=' + CONCUR_SCOPE + '&redirect_uri=' + HOST + '/redirect&state='
             break;
         default:
             auth_link = 'Wot?'

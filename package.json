@@ -14,6 +14,7 @@
   "dependencies": {
     "botbuilder": "^0.6.5",
     "restify": "^4.0.4",
-    "request": "2.71.0"
+    "request": "2.71.0",
+    "body-parser": "1.15.1"
   }
 }

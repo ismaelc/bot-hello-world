@@ -4,6 +4,15 @@ var request = require('request');
 
 var server = restify.createServer();
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({
+    limit: '50mb'
+})); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true
+})); // to support URL-encoded bodies
+
 var BOT_ID = process.env.BOT_APP_ID;
 var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
 
@@ -396,6 +405,11 @@ server.use(companyBot.verifyBotFramework({
 //server.use(helloBot.verifyBotFramework());
 server.post('/v1/messages', companyBot.listen());
 //server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
+
+server.get('/redirect'), function(request, response) {
+    console.log("Request: " + JSON.stringify(request.query));
+    response.send(JSON.stringify(request.query));
+});
 
 server.listen(process.env.port || 8080, function() {
     console.log('%s listening to %s', server.name, server.url);

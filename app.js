@@ -108,7 +108,8 @@ function formatReply(session, results, next) {
         var item = api_response['items'][i];
 
         var attachment = {
-            "title": item['title'] + ' (' + item['link'] + ')',
+            "title": item['title'], // + ' (' + item['link'] + ')',
+            "titleLink": item['link'],
             "text": item['snippet']
         }
 

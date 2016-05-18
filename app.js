@@ -398,6 +398,11 @@ function displayEntities(session, args) {
 
 //cortanaBot.listenStdin();
 
+server.get('/redirect', function(request, response) {
+    console.log("Request: " + JSON.stringify(request.query));
+    response.send(JSON.stringify(request.query));
+});
+
 server.use(companyBot.verifyBotFramework({
     appId: BOT_ID,
     appSecret: PRIMARY_SECRET
@@ -406,10 +411,7 @@ server.use(companyBot.verifyBotFramework({
 server.post('/v1/messages', companyBot.listen());
 //server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
 
-server.get('/redirect', function(request, response) {
-    console.log("Request: " + JSON.stringify(request.query));
-    response.send(JSON.stringify(request.query));
-});
+
 
 server.listen(process.env.port || 8080, function() {
     console.log('%s listening to %s', server.name, server.url);

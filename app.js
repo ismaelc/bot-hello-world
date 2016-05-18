@@ -1,6 +1,6 @@
 var builder = require('botbuilder');
 var restify = require('restify');
-//var request = require('request');
+var request = require('request');
 
 var server = restify.createServer();
 
@@ -399,7 +399,7 @@ function displayEntities(session, args) {
 //cortanaBot.listenStdin();
 
 server.get('/redirect', function(request, response) {
-    console.log("Request: " + request);
+    console.log("Request: " + JSON.stringify(request));
     response.send("Test");
 });
 

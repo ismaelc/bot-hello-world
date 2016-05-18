@@ -399,8 +399,8 @@ function displayEntities(session, args) {
 //cortanaBot.listenStdin();
 
 server.get('/redirect', function(request, response) {
-    console.log("Request: " + JSON.stringify(request));
-    response.send(JSON.stringify(request.query));
+    console.log("Request: " + request);
+    response.send(JSON.stringify(request));
 });
 
 server.use(companyBot.verifyBotFramework({

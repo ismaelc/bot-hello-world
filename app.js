@@ -4,6 +4,8 @@ var request = require('request');
 
 var server = restify.createServer();
 
+server.use(restify.queryParser());
+
 var bodyParser = require('body-parser');
 server.use(bodyParser.json({
     limit: '50mb'
@@ -399,8 +401,8 @@ function displayEntities(session, args) {
 //cortanaBot.listenStdin();
 
 server.get('/redirect', function(request, response) {
-    console.log("Request: " + JSON.stringify(request));
-    response.send("Test");
+    console.log("Request: " + request.params);
+    response.send(request.params);
 });
 
 server.use(companyBot.verifyBotFramework({

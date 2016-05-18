@@ -400,7 +400,7 @@ function displayEntities(session, args) {
 
 server.get('/redirect', function(request, response) {
     console.log("Request: " + request);
-    response.send(request);
+    response.send("Test");
 });
 
 server.use(companyBot.verifyBotFramework({

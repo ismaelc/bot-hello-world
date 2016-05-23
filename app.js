@@ -406,15 +406,20 @@ server.get('/redirect', function(request, response) {
     response.send(request.params);
 });
 
+/*
 server.use(companyBot.verifyBotFramework({
     appId: BOT_ID,
     appSecret: PRIMARY_SECRET
 }));
+*/
+
 //server.use(helloBot.verifyBotFramework());
 //server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
+
 // Working version below...
 //server.post('/v1/messages', companyBot.listen());
 
+// Removed this entire section and still works?
 /*
 server.post('/v1/messages', function (req, res) {
     var msg = req.body;

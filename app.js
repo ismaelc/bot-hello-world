@@ -417,6 +417,7 @@ server.use(companyBot.verifyBotFramework({
 
 server.post('/v1/messages', function (req, res) {
     var msg = req.body;
+    console.log(msg);
     if (/^delay/i.test(msg.text)) {
         // Delay sending the reply for 5 seconds
         setTimeout(function () {

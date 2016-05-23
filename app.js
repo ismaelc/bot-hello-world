@@ -400,6 +400,7 @@ function displayEntities(session, args) {
 
 //cortanaBot.listenStdin();
 
+// Calling this before the auth below for bot comms
 server.get('/redirect', function(request, response) {
     console.log("Request: " + request.params);
     response.send(request.params);
@@ -410,10 +411,28 @@ server.use(companyBot.verifyBotFramework({
     appSecret: PRIMARY_SECRET
 }));
 //server.use(helloBot.verifyBotFramework());
-server.post('/v1/messages', companyBot.listen());
 //server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
+// Working version below...
+//server.post('/v1/messages', companyBot.listen());
 
-
+server.post('/v1/messages', function (req, res) {
+    var msg = req.body;
+    if (/^delay/i.test(msg.text)) {
+        // Delay sending the reply for 5 seconds
+        setTimeout(function () {
+            var reply = {
+                replyToMessageId: msg.id,
+                to: msg.from,
+                from: msg.to,
+                text: 'I heard "' + msg.text.substring(6) + '"'
+            };
+            sendMessage(reply);
+        }, 5000);
+        res.send({ text: 'ok... sending reply in 5 seconds.' })
+    } else {
+        res.send({ text: 'I heard "' + msg.text + '". Say "delay {msg}" to send with a 5 second delay.' })
+    }
+});
 
 server.listen(process.env.port || 8080, function() {
     console.log('%s listening to %s', server.name, server.url);

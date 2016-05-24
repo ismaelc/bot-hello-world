@@ -417,10 +417,11 @@ server.use(companyBot.verifyBotFramework({
 //server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
 
 // Working version below...
-//server.post('/v1/messages', companyBot.listen());
+server.post('/v1/messages', companyBot.listen());
 
 // Removed this entire section and still works?
 
+/*
 server.post('/v1/messages', function (req, res) {
     var msg = req.body;
     console.log(msg);
@@ -440,6 +441,7 @@ server.post('/v1/messages', function (req, res) {
         res.send({ text: 'I heard "' + msg.text + '". Say "delay {msg}" to send with a 5 second delay.' })
     }
 });
+*/
 
 
 server.listen(process.env.port || 8080, function() {

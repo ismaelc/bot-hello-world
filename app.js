@@ -406,12 +406,12 @@ server.get('/redirect', function(request, response) {
     response.send(request.params);
 });
 
-/*
+
 server.use(companyBot.verifyBotFramework({
     appId: BOT_ID,
     appSecret: PRIMARY_SECRET
 }));
-*/
+
 
 //server.use(helloBot.verifyBotFramework());
 //server.post('/v1/messages', helloBot.verifyBotFramework(), helloBot.listen());
@@ -420,7 +420,7 @@ server.use(companyBot.verifyBotFramework({
 //server.post('/v1/messages', companyBot.listen());
 
 // Removed this entire section and still works?
-/*
+
 server.post('/v1/messages', function (req, res) {
     var msg = req.body;
     console.log(msg);
@@ -440,7 +440,7 @@ server.post('/v1/messages', function (req, res) {
         res.send({ text: 'I heard "' + msg.text + '". Say "delay {msg}" to send with a 5 second delay.' })
     }
 });
-*/
+
 
 server.listen(process.env.port || 8080, function() {
     console.log('%s listening to %s', server.name, server.url);

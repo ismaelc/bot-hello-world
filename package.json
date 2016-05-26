@@ -16,7 +16,7 @@
     "restify": "^4.0.4",
     "request": "2.71.0",
     "body-parser": "1.15.1",
-    "ms-rest": "1.42.2",
+    "ms-rest": "1.14.2",
     "botconnector": "0.9.6"
   }
 }

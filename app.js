@@ -242,7 +242,11 @@ function formatReply(session, results, next) {
 function sendReply(session, results) {
     console.log("Replying: " + JSON.stringify(results['response']));
     //session.send(results['response']);
-    session.send(session);
+    //session.send(session);
+
+    console.log("Session: " + JSON.stringify("User data: " + JSON.stringify(session.userData)));
+    session.send(JSON.stringify(results.entities));
+
     /*
     session.send({
         "text": "I am a test message http://slack.com",

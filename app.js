@@ -249,10 +249,10 @@ function sendReply(session, results) {
     //session.send(session);
 
     var reply = {
-        replyToMessageId: session.messasge.id,
-        to: session.messsage.from,
+        replyToMessageId: session.message.id,
+        to: session.message.from,
         from: session.message.to,
-        text: 'I heard "' + msg.text.substring(6) + '"'
+        text: 'I heard "' + session.message.text.substring(6) + '"'
     };
     sendMessage(reply);
 

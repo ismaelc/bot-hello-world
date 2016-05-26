@@ -20,6 +20,8 @@ server.use(bodyParser.urlencoded({
 var BOT_ID = process.env.BOT_APP_ID;
 var PRIMARY_SECRET = process.env.BOT_PRIMARY_SECRET;
 
+var credentials = new msRest.BasicAuthenticationCredentials(BOT_ID, PRIMARY_SECRET);
+
 var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 var GOOGLE_CUSTOMSEARCH_CX = process.env.GOOGLE_CUSTOMSEARCH_CX;
 var SEARCH_RESULT_MAX = 3;
@@ -405,6 +407,20 @@ dialog.on('builtin.intent.weather.show_weather_progression', [displayEntities]);
 function displayEntities(session, args) {
     console.log("Session: " + JSON.stringify("User data: " + JSON.stringify(session.userData)));
     session.send(JSON.stringify(args.entities));
+}
+
+// Helper function to send a Bot originated message to the user.
+function sendMessage(msg, cb) {
+    var client = new connector(credentials);
+    var options = { customHeaders: {'Ocp-Apim-Subscription-Key': credentials.password}};
+    client.messages.sendMessage(msg, options, function (err, result, request, response) {
+        if (!err && response && response.statusCode >= 400) {
+            err = new Error('Message rejected with "' + response.statusMessage + '"');
+        }
+        if (cb) {
+            cb(err);
+        }
+    });
 }
 
 //cortanaBot.listenStdin();

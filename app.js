@@ -248,7 +248,15 @@ function sendReply(session, results) {
     //session.send(results['response']);
     //session.send(session);
 
-    console.log("Session: " + JSON.stringify("User data: " + JSON.stringify(session.conversationData)));
+    var reply = {
+        replyToMessageId: session.messasge.id,
+        to: session.messsage.from,
+        from: session.message.to,
+        text: 'I heard "' + msg.text.substring(6) + '"'
+    };
+    sendMessage(reply);
+
+    console.log("Session: " + JSON.stringify("User data: " + JSON.stringify(session.message)));
     session.send(JSON.stringify(results.entities));
 
     /*

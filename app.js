@@ -244,7 +244,7 @@ function sendReply(session, results) {
     //session.send(results['response']);
     //session.send(session);
 
-    console.log("Session: " + JSON.stringify("User data: " + JSON.stringify(session.message)));
+    console.log("Session: " + JSON.stringify("User data: " + JSON.stringify(session.userData)));
     session.send(JSON.stringify(results.entities));
 
     /*

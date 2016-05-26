@@ -1,6 +1,8 @@
 var builder = require('botbuilder');
 var restify = require('restify');
 var request = require('request');
+var msRest = require('ms-rest');
+var connector = require('botconnector');
 
 var server = restify.createServer();
 

@@ -244,8 +244,8 @@ function formatReply(session, results, next) {
 }
 
 function sendReply(session, results) {
-    //console.log("Replying: " + JSON.stringify(results['response']));
-    //session.send(results['response']);
+    console.log("Replying: " + JSON.stringify(results['response']));
+    session.send(results['response']);
     //session.send(session);
 
     /*
@@ -258,8 +258,10 @@ function sendReply(session, results) {
     sendMessage(reply);
     */
 
+    /*
     console.log("Session: " + JSON.stringify("User data: " + JSON.stringify(session.message)));
     session.send(JSON.stringify(results.entities));
+    */
 
     /*
     session.send({

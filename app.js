@@ -3,6 +3,7 @@ var restify = require('restify');
 var request = require('request');
 var msRest = require('ms-rest');
 var connector = require('botconnector');
+var parseString = require('xml2js').parseString;
 
 var server = restify.createServer();
 
@@ -137,7 +138,15 @@ function verifyCodeThenExchangeToken(session, results, next) {
                 var token_response;
                 if (!error && response.statusCode == 200) {
                     console.log(body);
-                    token_response = body;
+                    //token_response = body;
+
+                    var xml = token_response;
+                    parseString(xml, function (err, result) {
+                        console.log(result);
+                        token_response = result;
+                    });
+
+                    //session.userData.concur_access_
                 }
                 else {
                     token_response = error;

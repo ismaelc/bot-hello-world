@@ -121,9 +121,14 @@ function pickService(session, args, next) {
 
 function verifyCode(session, results, next) {
     var code_from_user = results.response;
+    var code_verify_response = "No match."
+
+    if(temp_code.indexOf(code_from_user)) {
+        code_verify_response = "Match!";
+    }
 
     next({
-        response: code_from_user
+        response: code_verify_response
     });
 }
 

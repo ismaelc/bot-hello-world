@@ -162,7 +162,7 @@ function verifyCodeThenExchangeToken(session, results, next) {
 }
 
 function getQuery(session, args, next) {
-    console.log('Session from getQuery: ' + JSON.stringify(session));
+    //console.log('Session from getQuery: ' + JSON.stringify(session));
     var entity_query = builder.EntityRecognizer.findEntity(args.entities, 'query');
     console.log('Query: ' + JSON.stringify(entity_query.entity)); // the search query is in 'entity'
 

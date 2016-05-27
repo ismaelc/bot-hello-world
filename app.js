@@ -28,6 +28,7 @@ var SEARCH_RESULT_MAX = 3;
 
 var HOST = process.env.HOST;
 var CONCUR_CLIENT_ID = process.env.CONCUR_CLIENT_ID;
+var CONCUR_SECRET_KEY = process.env.CONCUR_SECRET_KEY;
 var CONCUR_SCOPE = process.env.CONCUR_SCOPE;
 
 //var BOX_API_KEY = process.env.BOX_API_KEY;
@@ -72,7 +73,7 @@ dialog.on('BoxIntent', [
 dialog.on('LoginIntent', [
     //getService,
     pickService,
-    verifyCode,
+    verifyCodeThenExchangeToken,
     sendReply
 ]);
 
@@ -119,18 +120,40 @@ function pickService(session, args, next) {
     }
 }
 
-function verifyCode(session, results, next) {
+function verifyCodeThenExchangeToken(session, results, next) {
     var code_from_user = results.response;
     console.log("User response: " + code_from_user);
     var code_verify_response = "No match."
 
-    if(temp_code.indexOf(code_from_user) >= 0) {
+    if (temp_code.indexOf(code_from_user) >= 0) {
         code_verify_response = "Match!";
+        // TODO: Delete code from array
+
+        request('https://www.concursolutions.com/net2/oauth2/GetAccessToken.ashx?&code=' +
+            code_from_user +
+            '&client_id=' + CONCUR_CLIENT_ID +
+            '&client_secret=' + CONCUR_SECRET_KEY,
+            function(error, response, body) {
+                var token_response;
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                    token_response = body;
+                }
+                else {
+                    token_response = error;
+                }
+
+                next({
+                    response: token_response;
+                });
+            })
     }
 
+    /*
     next({
         response: code_verify_response
     });
+    */
 }
 
 function getQuery(session, args, next) {

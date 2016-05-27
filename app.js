@@ -144,7 +144,7 @@ function verifyCodeThenExchangeToken(session, results, next) {
                 }
 
                 next({
-                    response: token_response;
+                    response: token_response
                 });
             })
     }

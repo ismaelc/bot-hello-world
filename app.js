@@ -3,7 +3,7 @@ var restify = require('restify');
 var request = require('request');
 var msRest = require('ms-rest');
 var connector = require('botconnector');
-var parseString = require('xml2js').parseString;
+var xmldoc = require('xmldoc');
 
 var server = restify.createServer();
 
@@ -55,11 +55,10 @@ companyBot.add('/', dialog);
 // NOTE: custom dialog doesn't support 'next' off the bat?
 // So have to rely on this format..
 dialog.on('SearchIntent', [
-    /*
+
     getQuery,
     searchQuery,
     formatReply,
-    */
     sendReply
 ]);
 
@@ -140,11 +139,8 @@ function verifyCodeThenExchangeToken(session, results, next) {
                     console.log(body);
                     //token_response = body;
 
-                    var xml = token_response;
-                    parseString(xml, function (err, result) {
-                        console.log(result);
-                        token_response = result;
-                    });
+                    var parsed_xml = xmldoc(body);
+                    token_response = parsed_xml.childNamed('Token');
 
                     //session.userData.concur_access_
                 }

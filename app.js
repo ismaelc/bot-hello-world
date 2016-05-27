@@ -70,7 +70,9 @@ dialog.on('BoxIntent', [
 */
 
 dialog.on('LoginIntent', [
-    getService,
+    //getService,
+    pickService,
+    verifyCode,
     sendReply
 ]);
 
@@ -98,6 +100,30 @@ function getService(session, args, next) {
 
     next({
         response: auth_link
+    });
+}
+
+function pickService(session, args, next) {
+
+    var entity_login = builder.EntityRecognizer.findEntity(args.entities, 'login_service');
+    console.log('Login: ' + JSON.stringify(entity_login.entity)); // the login service is in 'entity'
+    var auth_link;
+
+    switch (entity_login.entity.toLowerCase()) {
+        case 'concur':
+            //question = 'https://www.concursolutions.com/net2/oauth2/Login.aspx?client_id=' + CONCUR_CLIENT_ID + '&scope=' + CONCUR_SCOPE + '&redirect_uri=' + HOST + '/redirect&state='
+            builder.Prompts.text(session, '<Show Concur link here>.  Type code after you receive it');
+            break;
+        default:
+            builder.Prompts.text(session, '<Not sure what to put here yet>');
+    }
+}
+
+function verifyCode(session, results, next) {
+    var code_from_user = results.response;
+
+    next({
+        response: code_from_user
     });
 }
 
@@ -424,8 +450,12 @@ function displayEntities(session, args) {
 // Helper function to send a Bot originated message to the user.
 function sendMessage(msg, cb) {
     var client = new connector(credentials);
-    var options = { customHeaders: {'Ocp-Apim-Subscription-Key': credentials.password}};
-    client.messages.sendMessage(msg, options, function (err, result, request, response) {
+    var options = {
+        customHeaders: {
+            'Ocp-Apim-Subscription-Key': credentials.password
+        }
+    };
+    client.messages.sendMessage(msg, options, function(err, result, request, response) {
         if (!err && response && response.statusCode >= 400) {
             err = new Error('Message rejected with "' + response.statusMessage + '"');
         }
@@ -437,9 +467,14 @@ function sendMessage(msg, cb) {
 
 //cortanaBot.listenStdin();
 
+var temp_code = [];
+
 // Calling this before the auth below for bot comms
 server.get('/redirect', function(request, response) {
     console.log("Request: " + request.params);
+
+    temp_code.push(request.params.code);
+
     response.send(request.params);
 });
 

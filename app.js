@@ -3,7 +3,6 @@ var restify = require('restify');
 var request = require('request');
 var msRest = require('ms-rest');
 var connector = require('botconnector');
-var xmldoc = require('xmldoc');
 
 var server = restify.createServer();
 
@@ -139,8 +138,12 @@ function verifyCodeThenExchangeToken(session, results, next) {
                     console.log(body);
                     //token_response = body;
 
-                    var parsed_xml = xmldoc(body);
-                    token_response = parsed_xml.childNamed('Token');
+                    var cheerio = require("cheerio"),
+                        html = body,
+                        $ = cheerio.load(html, { xmlMode: true });
+
+                    console.log($("Token").text());
+                    token_response = $("Token").text();
 
                     //session.userData.concur_access_
                 }

@@ -124,7 +124,7 @@ function verifyCode(session, results, next) {
     console.log("User response: " + code_from_user);
     var code_verify_response = "No match."
 
-    if(temp_code.indexOf(code_from_user)) {
+    if(temp_code.indexOf(code_from_user) >= 0) {
         code_verify_response = "Match!";
     }
 

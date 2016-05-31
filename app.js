@@ -94,7 +94,8 @@ function resolveConcurQuery(session, results, next) {
     var resp;
     var concur_accessToken = session.userData.concur_accessToken;
     if(concur_accessToken) {
-        resp =  "Access token: " + ;
+
+        //resp =  "Access token: " + ;
 
         concur.getSegments(concur_accessToken, function(err, data) {
             if(err) {

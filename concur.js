@@ -46,7 +46,7 @@ function getSegments(access_token, callback_) {
             //return;
         } else {
 
-            //console.log("Segment %j", segment);
+            console.log("[Segment] %j", segment);
 
             var city;
             var address;

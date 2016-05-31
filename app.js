@@ -102,7 +102,10 @@ function resolveConcurQuery(session, results, next) {
                 resp = err;
             }
             else {
-                resp = data;
+                if(data.length == 0) {
+                    resp = "You have no upcoming flights.";
+                }
+                else resp = data;
             }
 
             next({

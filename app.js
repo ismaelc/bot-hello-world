@@ -76,7 +76,7 @@ dialog.on('LoginIntent', [
     sendReply
 ]);
 
-dialog.on('ConcurIntent'), [
+dialog.on('ConcurIntent', [
     getQuery,
     sendReply
 ]);

@@ -91,7 +91,7 @@ dialog.on('None', [
 */
 
 function resolveConcurQuery(session, results, next) {
-    var
+    var resp;
     if(session.userData.concur_accessToken) {
         resp =  "Access token: " + session.userData.concur_accessToken;
     }

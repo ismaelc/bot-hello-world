@@ -111,7 +111,7 @@ function resolveConcurQuery(session, results, next) {
     }
     else {
         next({
-            response: "You're not logged in!";
+            response: "You're not logged in!"
         });
     }
 

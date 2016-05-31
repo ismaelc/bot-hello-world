@@ -10,94 +10,92 @@ reverseLocate({ 'address' : 'Union Square San Francisco' }, function(err, result
 
 function reverseLocate(find_obj, callback_) {
 
-  var host = "maps.googleapis.com";
-  var endpoint = "/maps/api/geocode/json";
+    var host = "maps.googleapis.com";
+    var endpoint = "/maps/api/geocode/json";
 
-  var address = find_obj['address'];
+    var address = find_obj['address'];
 
-  /*
-  utils.doRequest(host, endpoint, 'GET', {
-    "address": address,
-    "key": process.env.GOOGLE_API_KEY
+    /*
+    utils.doRequest(host, endpoint, 'GET', {
+      "address": address,
+      "key": process.env.GOOGLE_API_KEY
 
-  }, function(data) {
+    }, function(data) {
 
-    var zipCode = getZipCode(data.results[0].address_components);
-    var cityName = getCityName(data.results[0].address_components);
+      var zipCode = getZipCode(data.results[0].address_components);
+      var cityName = getCityName(data.results[0].address_components);
 
-    var location = {
-      "city": cityName,
-      "address": data.results[0].formatted_address,
-      "coordinates": data.results[0].geometry.location,
-      "zipCode": zipCode
-    }
-
-    callback_(null, location);
-  });
-  */
-
-  var options = {
-      url: 'https://'
-        + host + endpoint
-        + '?key=' + process.env.GOOGLE_API_KEY
-        + '&address=' + address
-  };
-
-  function callback(error, response, body) {
-
-      if (!error && response.statusCode == 200) {
-
-          console.log('Response from Google: ' + JSON.stringify(body));
-
-          var data = body;
-
-          var zipCode = getZipCode(data.results[0].address_components);
-          var cityName = getCityName(data.results[0].address_components);
-
-          var location = {
-            "city": cityName,
-            "address": data.results[0].formatted_address,
-            "coordinates": data.results[0].geometry.location,
-            "zipCode": zipCode
-          }
-
-
-      } else {
-          console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
+      var location = {
+        "city": cityName,
+        "address": data.results[0].formatted_address,
+        "coordinates": data.results[0].geometry.location,
+        "zipCode": zipCode
       }
 
-      callback_(error, location);
+      callback_(null, location);
+    });
+    */
 
-  }
+    var options = {
+        url: 'https://' + host + endpoint + '?key=' + process.env.GOOGLE_API_KEY + '&address=' + address
+    };
 
-  request(options, callback);
+    function callback(error, response, body) {
+
+        if (!error && response.statusCode == 200) {
+
+            console.log('Response from Google: ' + body);
+
+            var data = body;
+
+            var zipCode = getZipCode(data.results[0].address_components);
+            var cityName = getCityName(data.results[0].address_components);
+
+            var location = {
+                "city": cityName,
+                "address": data.results[0].formatted_address,
+                "coordinates": data.results[0].geometry.location,
+                "zipCode": zipCode
+            }
+
+            callback_(null, location);
+
+
+        } else {
+            console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
+
+            callback_(error, null);
+        }
+    }
+
+    request(options, callback);
 
 }
 
 function getZipCode(addComponents) {
-  var zipCode;
+    var zipCode;
 
-  for (var i = 0; i < addComponents.length; i++) {
-    if (addComponents[i].types[0] == "postal_code") {
-      zipCode = addComponents[i].short_name;
-      break;
+    for (var i = 0; i < addComponents.length; i++) {
+        if (addComponents[i].types[0] == "postal_code") {
+            zipCode = addComponents[i].short_name;
+            break;
+        }
     }
-  }
 
-  return zipCode;
+    return zipCode;
 }
 
 function getCityName(addComponents) {
-  var cityName;
+    var cityName;
 
-  for (var i = 0; i < addComponents.length; i++) {
-    if (addComponents[i].types[0] == "locality") {
-      cityName = addComponents[i].long_name;
-      break;
+    for (var i = 0; i < addComponents.length; i++) {
+        if (addComponents[i].types[0] == "locality") {
+            cityName = addComponents[i].long_name;
+            break;
+        }
     }
-  }
 
-  return cityName;
+    return cityName;
 }
 
 exports.reverseLocate = reverseLocate;

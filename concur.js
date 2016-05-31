@@ -72,11 +72,16 @@ function getSegments(access_token, callback_) {
             }, function(err, result) {
 
                 //console.log('[google.reverseLocate]: ' + JSON.stringify(result));
-                var location = result;
 
-                segment.Location = location;
+                if (!err) {
+                    var location = result;
 
-                callback(null, segment);
+                    segment.Location = location;
+
+                    callback(null, segment);
+                } else {
+                    callback(err, null);
+                }
             });
         }
 
@@ -106,11 +111,11 @@ function getSegments(access_token, callback_) {
                             while (i < itinArray.length && d > new Date(itinArray[i].EndDateLocal)) i++;
 
                             // Check if i has gone outside - because there are no upcoming flights
-                            if(i >= itinArray.length) {
+                            if (i >= itinArray.length) {
                                 finalResult(null, []);
                             } else {
                                 callback(null, itinArray[i].TripId);
-                            }                            
+                            }
                         } else finalResult(null, []);
                     })
                     .fail(function(error) {

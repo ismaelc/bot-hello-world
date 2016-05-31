@@ -40,14 +40,16 @@ function reverseLocate(find_obj, callback_) {
       url: 'https://'
         + host + endpoint
         + '?key=' + process.env.GOOGLE_API_KEY
-        + 'address=' + address
+        + '&address=' + address
   };
 
   function callback(error, response, body) {
 
       if (!error && response.statusCode == 200) {
 
-          var data = JSON.parse(body);
+          console.log('Response from Google: ' + JSON.stringify(body));
+
+          var data = body;
 
           var zipCode = getZipCode(data.results[0].address_components);
           var cityName = getCityName(data.results[0].address_components);
@@ -59,7 +61,7 @@ function reverseLocate(find_obj, callback_) {
             "zipCode": zipCode
           }
 
-          console.log('Response from Google: ' + JSON.stringify(location));
+
       } else {
           console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
       }

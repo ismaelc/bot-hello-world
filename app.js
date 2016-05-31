@@ -55,7 +55,6 @@ companyBot.add('/', dialog);
 // NOTE: custom dialog doesn't support 'next' off the bat?
 // So have to rely on this format..
 dialog.on('SearchIntent', [
-
     getQuery,
     searchQuery,
     formatReply,
@@ -74,6 +73,11 @@ dialog.on('LoginIntent', [
     //getService,
     pickService,
     verifyCodeThenExchangeToken,
+    sendReply
+]);
+
+dialog.on('ConcurIntent'), [
+    getQuery,
     sendReply
 ]);
 

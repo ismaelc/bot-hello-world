@@ -92,16 +92,30 @@ dialog.on('None', [
 
 function resolveConcurQuery(session, results, next) {
     var resp;
-    if(session.userData.concur_accessToken) {
-        resp =  "Access token: " + session.userData.concur_accessToken;
+    var concur_accessToken = session.userData.concur_accessToken;
+    if(concur_accessToken) {
+        resp =  "Access token: " + ;
+
+        concur.getSegments(concur_accessToken, function(err, data) {
+            if(err) {
+                resp = err;
+            }
+            else {
+                resp = data;
+            }
+
+            next({
+                response: resp
+            });
+        })
     }
     else {
-        resp = "You're not logged in";
+        next({
+            response: "You're not logged in!";
+        });
     }
 
-    next({
-        response: resp
-    });
+
 }
 
 function getService(session, args, next) {

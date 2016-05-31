@@ -44,15 +44,27 @@ function reverseLocate(find_obj, callback_) {
   };
 
   function callback(error, response, body) {
-      var result = {};
+
       if (!error && response.statusCode == 200) {
-          result = JSON.parse(body);
-          console.log('Response from Google: ' + JSON.stringify(result));
+
+          var data = JSON.parse(body);
+
+          var zipCode = getZipCode(data.results[0].address_components);
+          var cityName = getCityName(data.results[0].address_components);
+
+          var location = {
+            "city": cityName,
+            "address": data.results[0].formatted_address,
+            "coordinates": data.results[0].geometry.location,
+            "zipCode": zipCode
+          }
+
+          console.log('Response from Google: ' + JSON.stringify(location));
       } else {
           console.log('Error: ' + JSON.stringify(error) + "Response: " + JSON.stringify(response));
       }
 
-      callback_(error, result);
+      callback_(error, location);
 
   }
 

@@ -93,30 +93,31 @@ dialog.on('None', [
 function resolveConcurQuery(session, results, next) {
     var resp;
     var concur_accessToken = session.userData.concur_accessToken;
-    if(concur_accessToken) {
+    if (concur_accessToken) {
 
         //resp =  "Access token: " + ;
 
         concur.getSegments(concur_accessToken, function(err, data) {
 
-            data = JSON.parse(data);
-            
-            if(err) {
+            //data = JSON.parse(data);
+
+            console.log("[resolveConcurQuery] Data: " + data);
+
+            if (err) {
                 resp = err;
-            }
-            else {
-                if(data.length == 0) {
+            } else {
+                if (data.length == 0) {
                     resp = "You have no upcoming flights.";
-                }
-                else resp = data;
+                } else resp = data;
             }
+
+            console.log("[resolveConcurQuery] Resp: " + resp);
 
             next({
                 response: resp
             });
         })
-    }
-    else {
+    } else {
         next({
             response: "You're not logged in!"
         });
@@ -181,14 +182,15 @@ function verifyCodeThenExchangeToken(session, results, next) {
 
                     var cheerio = require("cheerio"),
                         html = body,
-                        $ = cheerio.load(html, { xmlMode: true });
+                        $ = cheerio.load(html, {
+                            xmlMode: true
+                        });
 
                     console.log($("Token").text());
                     token_response = $("Token").text();
 
                     //session.userData.concur_access_
-                }
-                else {
+                } else {
                     token_response = error;
                 }
 

@@ -3,6 +3,7 @@ var restify = require('restify');
 var request = require('request');
 var msRest = require('ms-rest');
 var connector = require('botconnector');
+var concur = require('./concur.js');
 
 var server = restify.createServer();
 
@@ -150,6 +151,9 @@ function verifyCodeThenExchangeToken(session, results, next) {
                 else {
                     token_response = error;
                 }
+
+                // save access token to session
+                session.userData.concur_accessToken = token_response;
 
                 next({
                     response: token_response

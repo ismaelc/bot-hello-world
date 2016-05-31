@@ -18,6 +18,11 @@
     "body-parser": "1.15.1",
     "ms-rest": "1.14.2",
     "botconnector": "0.9.6",
-    "cheerio":"0.20.0"
+    "cheerio":"0.20.0",
+    "concur-platform": "0.3.9",
+    "async": "1.5.2",
+     "type-of-is": "3.3.0"
+
+
   }
 }

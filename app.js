@@ -78,6 +78,7 @@ dialog.on('LoginIntent', [
 
 dialog.on('ConcurIntent', [
     getQuery,
+    resolveConcurQuery,
     sendReply
 ]);
 
@@ -88,6 +89,20 @@ dialog.on('None', [
     }
 ]);
 */
+
+function resolveConcurQuery(session, results, next) {
+    var
+    if(session.userData.concur_accessToken) {
+        resp =  "Access token: " + session.userData.concur_accessToken;
+    }
+    else {
+        resp = "You're not logged in";
+    }
+
+    next({
+        response: resp
+    });
+}
 
 function getService(session, args, next) {
 

@@ -46,7 +46,7 @@ function reverseLocate(find_obj, callback_) {
 
             console.log('Response from Google: ' + body);
 
-            var data = body;
+            var data = JSON.parse(body);
 
             var zipCode = getZipCode(data.results[0].address_components);
             var cityName = getCityName(data.results[0].address_components);

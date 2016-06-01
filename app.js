@@ -281,7 +281,7 @@ function formatConcurSegmentsReply(session, results, next) {
         var attachment = {
             "title": item['SegmentType'], // + ' (' + item['link'] + ')',
             "titleLink": item['FlightNumber'],
-            "text": item['Location']['city'],
+            "text": '[ ' + item['StartDateLocal'] + ' ] ' + item['Location']['city'] + ' - ' + item['Location']['address'],
             //"thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
             "thumbnailUrl": thumbnail
         }
@@ -344,7 +344,7 @@ function formatConcurSegmentsReply(session, results, next) {
 
     // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
     var slack_format_message = {
-        "text": "Here's what I found!",
+        "text": "Your itinerary: ",
         "attachments": attachments
     }
 

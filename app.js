@@ -111,7 +111,7 @@ function resolveConcurQuery(session, results, next) {
                 } else resp = data;
             }
 
-            console.log("[resolveConcurQuery] Resp: " + resp);
+            console.log("[resolveConcurQuery] Resp: " + JSON.stringify(resp));
 
             next({
                 response: resp
@@ -255,6 +255,102 @@ function searchBoxQuery(session, results, next) {
     });
 }
 */
+
+function formatConcurSegmentsReply(session, results, next) {
+    console.log('Entered formatConcurSegmentsReply()..');
+    var formatted_reply = '';
+    var api_response = results['response'];
+    var len = api_response.length;
+    //if (len > SEARCH_RESULT_MAX) len = SEARCH_RESULT_MAX;
+
+    var attachments = [];
+
+    for (var i = 0; i < len; i++) {
+        formatted_reply += '[' + (i + 1) + ']: ' + api_response[i]['formattedUrl'] + '\n';
+        var item = api_response['items'][i];
+        var thumbnail = 'http://placehold.it/65x65'; // Need a better image missing placeholder
+        if (typeof(item['pagemap']['cse_thumbnail']) != 'undefined') {
+            thumbnail = item['pagemap']['cse_thumbnail'][0]['src'];
+        } else {
+            console.log('Error: Can\'t show item ' + i + 1);
+        }
+
+        var attachment = {
+            "title": item['title'], // + ' (' + item['link'] + ')',
+            "titleLink": item['link'],
+            "text": item['snippet'],
+            //"thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
+            "thumbnailUrl": thumbnail
+        }
+
+        console.log(attachment + '\n');
+
+        attachments.push(attachment);
+    }
+
+    /*
+    next({
+        response: 'Items length: ' + api_response['items'].length
+    });
+    */
+
+    console.log('attachments: ' + JSON.stringify(attachments));
+
+    /*
+    var dummy = {
+
+        "attachments": [{
+            "fallback": "Required plain-text summary of the attachment.",
+            "color": "#36a64f",
+            "pretext": "Optional text that appears above the attachment block",
+            "author_name": "Bobby Tables",
+            "author_link": "http://flickr.com/bobby/",
+            "author_icon": "http://flickr.com/icons/bobby.jpg",
+            "title": "Slack API Documentation",
+            "title_link": "https://api.slack.com/",
+            "text": "Optional text that appears within the attachment",
+            "fields": [{
+                "title": "Priority",
+                "value": "High",
+                "short": false
+            }],
+            "image_url": "http://my-website.com/path/to/image.jpg",
+            "thumb_url": "http://example.com/path/to/thumb.png"
+        }, {
+            "fallback": "Required plain-text summary of the attachment.",
+            "color": "#36a64f",
+            "pretext": "Optional text that appears above the attachment block",
+            "author_name": "Bobby Tables",
+            "author_link": "http://flickr.com/bobby/",
+            "author_icon": "http://flickr.com/icons/bobby.jpg",
+            "title": "Slack API Documentation",
+            "title_link": "https://api.slack.com/",
+            "text": "Optional text that appears within the attachment",
+            "fields": [{
+                "title": "Priority",
+                "value": "High",
+                "short": false
+            }],
+            "image_url": "http://my-website.com/path/to/image.jpg",
+            "thumb_url": "http://example.com/path/to/thumb.png"
+        }]
+
+    }
+    */
+
+
+    // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
+    var slack_format_message = {
+        "text": "Here's what I found!",
+        "attachments": attachments
+    }
+
+    //slack_format_message = dummy;
+
+    next({
+        response: slack_format_message
+    });
+}
 
 function formatReply(session, results, next) {
     console.log('Entered formatReply()..');

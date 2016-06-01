@@ -101,7 +101,7 @@ function resolveConcurQuery(session, results, next) {
 
             //data = JSON.parse(data);
 
-            console.log("[resolveConcurQuery] Data: " + data);
+            //console.log("[resolveConcurQuery] Data: " + data);
 
             if (err) {
                 resp = err;
@@ -114,7 +114,7 @@ function resolveConcurQuery(session, results, next) {
             console.log("[resolveConcurQuery] Resp: " + resp);
 
             next({
-                response: resp
+                response: JSON.parse(resp)
             });
         })
     } else {

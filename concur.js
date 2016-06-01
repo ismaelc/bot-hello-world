@@ -8,7 +8,7 @@ var google = require('./google.js');
 function testSegments() {
 
     var get_obj = {
-        'access_token': '<ignore this>'
+        'access_token': '<>'
     }
 
     getSegments(get_obj, function(err, result) {
@@ -76,6 +76,7 @@ function getSegments(access_token, callback_) {
                 if (!err) {
                     var location = result;
 
+                    console.log('[Location]: ' + location);
                     segment.Location = location;
 
                     callback(null, segment);

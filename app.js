@@ -114,7 +114,7 @@ function resolveConcurQuery(session, results, next) {
             console.log("[resolveConcurQuery] Resp: " + resp);
 
             next({
-                response: JSON.parse(resp)
+                response: resp
             });
         })
     } else {
@@ -353,7 +353,7 @@ function formatReply(session, results, next) {
 }
 
 function sendReply(session, results) {
-    console.log("Replying: " + JSON.stringify(results['response']));
+    //console.log("Replying: " + JSON.stringify(results['response']));
     session.send(results['response']);
     //session.send(session);
 

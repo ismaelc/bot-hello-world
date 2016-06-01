@@ -79,6 +79,7 @@ dialog.on('LoginIntent', [
 dialog.on('ConcurIntent', [
     getQuery,
     resolveConcurQuery,
+    formatConcurSegmentsReply,
     sendReply
 ]);
 
@@ -258,7 +259,7 @@ function searchBoxQuery(session, results, next) {
 
 function formatConcurSegmentsReply(session, results, next) {
     console.log('Entered formatConcurSegmentsReply()..');
-    var formatted_reply = '';
+    //var formatted_reply = '';
     var api_response = results['response'];
     var len = api_response.length;
     //if (len > SEARCH_RESULT_MAX) len = SEARCH_RESULT_MAX;
@@ -266,19 +267,21 @@ function formatConcurSegmentsReply(session, results, next) {
     var attachments = [];
 
     for (var i = 0; i < len; i++) {
-        formatted_reply += '[' + (i + 1) + ']: ' + api_response[i]['formattedUrl'] + '\n';
-        var item = api_response['items'][i];
+        //formatted_reply += '[' + (i + 1) + ']: ' + api_response[i]['formattedUrl'] + '\n';
+        var item = api_response[i];
         var thumbnail = 'http://placehold.it/65x65'; // Need a better image missing placeholder
+        /*
         if (typeof(item['pagemap']['cse_thumbnail']) != 'undefined') {
             thumbnail = item['pagemap']['cse_thumbnail'][0]['src'];
         } else {
             console.log('Error: Can\'t show item ' + i + 1);
         }
+        */
 
         var attachment = {
-            "title": item['title'], // + ' (' + item['link'] + ')',
-            "titleLink": item['link'],
-            "text": item['snippet'],
+            "title": item['SegmentType'], // + ' (' + item['link'] + ')',
+            "titleLink": item['FlightNumber'],
+            "text": item['Location']['city'],
             //"thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
             "thumbnailUrl": thumbnail
         }

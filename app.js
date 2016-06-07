@@ -368,7 +368,7 @@ function formatPasswordReply(session, args, next) {
 
     var attachment = {
         "title": 'How to change your password', // + ' (' + item['link'] + ')',
-        "titleLink": 'Changing your password',
+        "titleLink": "https://limitless-inlet-39812.herokuapp.com/ForgotPassword.png",
         "text": 'If you forgot your password, click on the Forgot your password link',
         //"thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
         "thumbnailUrl": "https://limitless-inlet-39812.herokuapp.com/ForgotPassword.png"

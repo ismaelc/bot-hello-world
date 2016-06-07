@@ -52,6 +52,11 @@ companyBot.add('/', dialog);
 /* Concur Intents */
 //dialog.on('SearchIntent', [displayEntities]);
 
+dialog.on('PasswordIntent', [
+    formatPasswordReply,
+    sendReply
+]);
+
 // NOTE: custom dialog doesn't support 'next' off the bat?
 // So have to rely on this format..
 dialog.on('SearchIntent', [
@@ -345,6 +350,89 @@ function formatConcurSegmentsReply(session, results, next) {
     // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
     var slack_format_message = {
         "text": "Your itinerary: ",
+        "attachments": attachments
+    }
+
+    //slack_format_message = dummy;
+
+    next({
+        response: slack_format_message
+    });
+}
+
+function formatPasswordReply(session, args, next) {
+    console.log('Entered formatPasswordReply()..');
+    var formatted_reply = '';
+
+    var attachments = [];
+
+    var attachment = {
+        "title": 'How to change your password', // + ' (' + item['link'] + ')',
+        "titleLink": 'Changing your password',
+        "text": 'If you forgot your password, click on the Forgot your password link',
+        //"thumbnailUrl": item['pagemap']['cse_thumbnail'][0]['src']
+        "thumbnailUrl": "https://limitless-inlet-39812.herokuapp.com/ForgotPassword.png"
+    }
+
+    console.log(attachment + '\n');
+
+    attachments.push(attachment);
+
+
+    /*
+    next({
+        response: 'Items length: ' + api_response['items'].length
+    });
+    */
+
+    console.log('attachments: ' + JSON.stringify(attachments));
+
+    /*
+    var dummy = {
+
+        "attachments": [{
+            "fallback": "Required plain-text summary of the attachment.",
+            "color": "#36a64f",
+            "pretext": "Optional text that appears above the attachment block",
+            "author_name": "Bobby Tables",
+            "author_link": "http://flickr.com/bobby/",
+            "author_icon": "http://flickr.com/icons/bobby.jpg",
+            "title": "Slack API Documentation",
+            "title_link": "https://api.slack.com/",
+            "text": "Optional text that appears within the attachment",
+            "fields": [{
+                "title": "Priority",
+                "value": "High",
+                "short": false
+            }],
+            "image_url": "http://my-website.com/path/to/image.jpg",
+            "thumb_url": "http://example.com/path/to/thumb.png"
+        }, {
+            "fallback": "Required plain-text summary of the attachment.",
+            "color": "#36a64f",
+            "pretext": "Optional text that appears above the attachment block",
+            "author_name": "Bobby Tables",
+            "author_link": "http://flickr.com/bobby/",
+            "author_icon": "http://flickr.com/icons/bobby.jpg",
+            "title": "Slack API Documentation",
+            "title_link": "https://api.slack.com/",
+            "text": "Optional text that appears within the attachment",
+            "fields": [{
+                "title": "Priority",
+                "value": "High",
+                "short": false
+            }],
+            "image_url": "http://my-website.com/path/to/image.jpg",
+            "thumb_url": "http://example.com/path/to/thumb.png"
+        }]
+
+    }
+    */
+
+
+    // Note: Some fields are ignored because it should be POST to Slack and not GET (as this app does through session.send) ?
+    var slack_format_message = {
+        "text": "Here's what I found!",
         "attachments": attachments
     }
 
